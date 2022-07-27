@@ -25,5 +25,5 @@ module.exports = {
   },
   extends: [`prettier`],
   rules,
-  ignorePatterns: [`vite.config.ts`],
+  ignorePatterns: [`vite.config.ts`, `tailwind.config.js`, `postcss.config.js`],
 };
