@@ -25,4 +25,5 @@ module.exports = {
   },
   extends: [`prettier`],
   rules,
+  ignorePatterns: [`vite.config.ts`],
 };
