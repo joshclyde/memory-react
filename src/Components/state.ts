@@ -1,4 +1,36 @@
-export const state = {
+interface State {
+  auth: {
+    isAuthenticated: boolean;
+    uid: string;
+    loading: string;
+  };
+  tags: {
+    tagsIncludingDeleted: Record<
+      string,
+      { name: string; createdDate: string; lastModified: string }
+    >;
+  };
+  flashcards: {
+    flashcardsIncludingDeleted: Record<
+      string,
+      {
+        front: string;
+        back: string;
+        tags: Array<string>;
+        createdDate: string;
+        lastModified: string;
+      }
+    >;
+  };
+  reviews: {
+    reviews: Record<
+      string,
+      { result: string; memoryId: string; createdDate: string; lastModified: string }
+    >;
+  };
+}
+
+export const state: State = {
   auth: {
     isAuthenticated: true,
     uid: `iiB9XLF95zXXTnDkG0luc2sgvh22`,
@@ -5023,5 +5055,4 @@ export const state = {
       },
     },
   },
-  layout: { isDrawerOpen: true },
 };

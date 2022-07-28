@@ -1,4 +1,5 @@
-import { useState } from "react";
+import fuzzysort from "fuzzysort";
+import { useMemo, useState } from "react";
 import { HiPlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
@@ -6,8 +7,27 @@ import { state } from "@Components/state";
 
 import { Item } from "./Item";
 
+const flashcardsState = Object.entries(state.flashcards.flashcardsIncludingDeleted).map(
+  ([id, values]) => ({ ...values, id }),
+);
+
 export const ListOfMemories = () => {
   const [searchTerm, setSearchTerm] = useState(``);
+
+  const flashcards = useMemo(() => {
+    if (searchTerm === ``) {
+      return flashcardsState;
+    }
+
+    return fuzzysort
+      .go(searchTerm, flashcardsState, {
+        keys: [`front`, `back`],
+        threshold: -100000,
+      })
+      .map((x) => {
+        return x.obj;
+      });
+  }, [searchTerm]);
 
   return (
     <div className="basis-96 shrink-0 bg-dark-2 border-r border-dark-1 h-screen flex flex-col">
@@ -23,17 +43,15 @@ export const ListOfMemories = () => {
         </Link>
       </div>
       <div className="divide-y overflow-y-scroll">
-        {Object.entries(state.flashcards.flashcardsIncludingDeleted).map(
-          ([id, props]) => {
-            return (
-              <div key={id} className="border-dark-1">
-                <Link to={`/memories/${id}`}>
-                  <Item {...props} />
-                </Link>
-              </div>
-            );
-          },
-        )}
+        {flashcards.map(({ id, ...props }) => {
+          return (
+            <div key={id} className="border-dark-1">
+              <Link to={`/memories/${id}`}>
+                <Item {...props} />
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
