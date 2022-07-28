@@ -1,3 +1,5 @@
+import { HiOutlineTag } from "react-icons/hi";
+
 import { state } from "@Components/state";
 
 const message = (num: number, time: string) => {
@@ -49,8 +51,13 @@ export const Item = ({
       </div>
       <div className="flex flex-col w-full">
         <div className="text-light-2 mb-1">{front}</div>
-        <div className="self-end text-green-1 text-xs">
-          {tags.map((tag) => state.tags.tagsIncludingDeleted[tag].name)}
+        <div className="self-end text-green-1 text-xs flex gap-3">
+          {tags.map((tag) => (
+            <div key={tag} className="flex items-center gap-[2px]">
+              <HiOutlineTag />
+              {state.tags.tagsIncludingDeleted[tag].name}
+            </div>
+          ))}
         </div>
       </div>
     </div>
