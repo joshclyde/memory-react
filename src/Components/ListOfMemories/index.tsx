@@ -6,12 +6,14 @@ import { Item } from "./Item";
 
 export const ListOfMemories = () => {
   return (
-    <div className="divide-y">
+    <div className="divide-y overflow-y-scroll">
       {Object.entries(state.flashcards.flashcardsIncludingDeleted).map(([id, props]) => {
         return (
-          <Link key={id} to={`/memories/${id}`}>
-            <Item {...props} />
-          </Link>
+          <div key={id} className="border-dark-1">
+            <Link to={`/memories/${id}`}>
+              <Item {...props} />
+            </Link>
+          </div>
         );
       })}
     </div>

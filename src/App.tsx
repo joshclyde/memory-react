@@ -1,5 +1,6 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
+import { MenuBar } from "@Components/MenuBar";
 import { Home } from "@Components/Routes/Home";
 import { Memories } from "@Components/Routes/Memories";
 import { ExistingMemory } from "@Components/Routes/Memories/ExistingMemory";
@@ -9,11 +10,7 @@ import { Tags } from "@Components/Routes/Tags";
 export const App = () => {
   return (
     <div className="flex">
-      <div className="basis-24 shrink-0 flex flex-col">
-        <Link to="/">Learn</Link>
-        <Link to="/memories">Memories</Link>
-        <Link to="/tags">Tags</Link>
-      </div>
+      <MenuBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="memories" element={<Memories />}>

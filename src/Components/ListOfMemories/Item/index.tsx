@@ -44,12 +44,12 @@ export const Item = ({
 }) => {
   return (
     <div className="p-4 flex">
-      <div className="basis-12 shrink-0">
+      <div className="basis-12 shrink-0 text-purple-1">
         {getLastModifiedMessage(new Date(lastModified))}
       </div>
       <div className="flex flex-col w-full">
-        <div>{front}</div>
-        <div className="self-end">
+        <div className="text-light-2 mb-1">{front}</div>
+        <div className="self-end text-green-1 text-xs">
           {tags.map((tag) => state.tags.tagsIncludingDeleted[tag].name)}
         </div>
       </div>
