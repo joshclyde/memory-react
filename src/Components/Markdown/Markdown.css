@@ -1,0 +1,111 @@
+.Markdown h1 {
+  color: var(--green-1);
+  font-size: x-large;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.Markdown h2 {
+  color: var(--green-1);
+  font-size: large;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.Markdown h3 {
+  color: var(--green-1);
+  font-size: medium;
+  margin-bottom: 16px;
+}
+
+.Markdown h4 {
+  color: var(--green-1);
+  font-size: small;
+  margin-bottom: 16px;
+}
+
+.Markdown h5 {
+  color: var(--green-1);
+  font-size: small;
+  margin-bottom: 16px;
+}
+
+.Markdown h6 {
+  color: var(--green-1);
+  font-size: small;
+  margin-bottom: 16px;
+}
+
+.Markdown pre {
+  margin-bottom: 16px;
+}
+
+.Markdown p {
+  margin-bottom: 16px;
+}
+
+.Markdown a {
+  color: var(--blue-1);
+  text-decoration: underline;
+}
+
+.Markdown code {
+  border: 1px solid var(--purple-1);
+  background-color: var(--dark-1);
+  font-size: 12px;
+  padding: 2px;
+}
+
+.Markdown pre {
+  border: 1px solid var(--purple-1);
+  background-color: var(--dark-1);
+  padding: 2px;
+}
+
+.Markdown pre code {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.Markdown blockquote {
+  border-left: 2px;
+  border-color: var(--purple-1);
+  border-style: solid;
+  padding-left: 16px;
+}
+
+.Markdown ul {
+  margin-bottom: 16px;
+  padding-left: 16px;
+}
+
+.Markdown ul ul {
+  margin-bottom: 0;
+}
+
+.Markdown ul li::marker {
+  content: "-  ";
+}
+
+.Markdown ol {
+  margin-bottom: 16px;
+  counter-reset: my-awesome-counter;
+}
+
+.Markdown ol ol {
+  padding-left: 16px;
+  margin-bottom: 0;
+}
+
+.Markdown ol li {
+  counter-increment: my-awesome-counter;
+}
+
+.Markdown ol li::marker {
+  content: counter(my-awesome-counter) ". ";
+}
+
+.Markdown hr {
+  margin: 16px 0;
+}
