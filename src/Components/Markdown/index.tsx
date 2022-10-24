@@ -13,14 +13,9 @@ export const Markdown = ({ children }: { children: string }) => {
   }, [children]);
 
   return (
-    <div className="flex space-x-12">
-      <div className="border-green-1 border-2 p-2 w-96 whitespace-pre-line">
-        {children}
-      </div>
-      <div
-        className="border-blue-1 border-2 p-2 w-96 Markdown"
-        dangerouslySetInnerHTML={innerHtml}
-      />
-    </div>
+    <div
+      className="p-2 Markdown"
+      dangerouslySetInnerHTML={innerHtml}
+    />
   );
 };

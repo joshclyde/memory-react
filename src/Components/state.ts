@@ -187,8 +187,8 @@ export const state: State = {
   flashcards: {
     flashcardsIncludingDeleted: {
       "08XCO9G54cZwi5oVCzws": {
-        front: `What does this expand out to\n\nx += 5;`,
-        back: `x = x + 5;`,
+        front: `What does this expand out to\n\n\`x += 5;\``,
+        back: `\`x = x + 5;\``,
         tags: [`2bpfIG2C3uOUal2cJeod`],
         createdDate: `Tue May 24 2022 09:24:04 GMT-0400 (Eastern Daylight Time)`,
         lastModified: `Tue May 24 2022 09:24:04 GMT-0400 (Eastern Daylight Time)`,
@@ -216,7 +216,7 @@ export const state: State = {
       },
       "0UedDmsGqjoWBI8tAXaX": {
         front: `Explain a getter.`,
-        back: `The \`get\` syntax is a dynamically computed value.\n\nconst o = {\n  a: 'foo',\n  get b() {\n    if (this.a === 'foo') {\n      return 'bar';\n    }\n    return 'baz';\n  }\n}\n\no.b; // bar`,
+        back: `The \`get\` syntax is a dynamically computed value.\n\n\`\`\`js\nconst o = {\n  a: 'foo',\n  get b() {\n    if (this.a === 'foo') {\n      return 'bar';\n    }\n    return 'baz';\n  }\n}\n\no.b; // bar\n\`\`\``,
         tags: [`HPGpTmMLX4iFKog2u5Rm`],
         createdDate: `Tue May 24 2022 09:24:04 GMT-0400 (Eastern Daylight Time)`,
         lastModified: `Tue May 24 2022 09:24:04 GMT-0400 (Eastern Daylight Time)`,
@@ -5056,3 +5056,7 @@ export const state: State = {
     },
   },
 };
+
+export const flashcardsState = Object.entries(
+  state.flashcards.flashcardsIncludingDeleted,
+).map(([id, values]) => ({ ...values, id }));

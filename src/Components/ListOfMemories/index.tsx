@@ -3,13 +3,9 @@ import { useMemo, useState } from "react";
 import { HiPlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-import { state } from "@Components/state";
+import { flashcardsState } from "@Components/state";
 
 import { Item } from "./Item";
-
-const flashcardsState = Object.entries(state.flashcards.flashcardsIncludingDeleted).map(
-  ([id, values]) => ({ ...values, id }),
-);
 
 export const ListOfMemories = () => {
   const [searchTerm, setSearchTerm] = useState(``);
