@@ -3,11 +3,16 @@ import {
   HiHome,
   HiTag,
   HiBookOpen,
+  HiLogin,
+  HiLogout,
   HiOutlineHome,
   HiOutlineBookOpen,
   HiOutlineTag,
 } from "react-icons/hi";
 import { Link, Route, Routes } from "react-router-dom";
+
+import { signInUserThroughGoogle, signOutUser } from "@/firebase";
+import { useAppSelector } from "@/store";
 
 const MenuLink = ({ to, children }: { to: string; children: React.ReactNode }) => {
   return (
@@ -17,7 +22,24 @@ const MenuLink = ({ to, children }: { to: string; children: React.ReactNode }) =
   );
 };
 
+const MenuButton = ({
+  onClick,
+  children,
+}: {
+  onClick: () => void;
+  children: React.ReactNode;
+}) => {
+  return (
+    <button type="button" onClick={onClick} className="flex items-center py-1">
+      {children}
+    </button>
+  );
+};
+
 export const MenuBar = () => {
+  const loading = useAppSelector(state => state.auth.loading);
+  const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
+
   return (
     <div className="basis-48 shrink-0 flex flex-col text-blue-1 p-4">
       <MenuLink to="/">
@@ -41,6 +63,14 @@ export const MenuBar = () => {
         </Routes>
         Tags
       </MenuLink>
+      {loading === `SUCCESS` && !isAuthenticated && <MenuButton onClick={() => signInUserThroughGoogle()}>
+        <HiLogin className="mr-4" />
+        Login
+      </MenuButton>}
+      {loading === `SUCCESS` && isAuthenticated && <MenuButton onClick={() => signOutUser()}>
+        <HiLogout className="mr-4" />
+        Logout
+      </MenuButton>}
     </div>
   );
 };
