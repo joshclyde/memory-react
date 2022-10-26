@@ -1,13 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 
-import { useStartAuthListener } from "@/store/useStartAuthListener";
-import { MenuBar } from "@Components/MenuBar";
-import { Home } from "@Components/Routes/Home";
-import { Memories } from "@Components/Routes/Memories";
-import { ExistingMemory } from "@Components/Routes/Memories/ExistingMemory";
-import { NewMemory } from "@Components/Routes/Memories/NewMemory";
-import { Tags } from "@Components/Routes/Tags";
-
+import { MenuBar } from "src/components/MenuBar";
+import { Home } from "src/components/Routes/Home";
+import { Memories } from "src/components/Routes/Memories";
+import { ExistingMemory } from "src/components/Routes/Memories/ExistingMemory";
+import { NewMemory } from "src/components/Routes/Memories/NewMemory";
+import { Tags } from "src/components/Routes/Tags";
+import { useStartAuthListener } from "src/store/useStartAuthListener";
 
 export const App = () => {
   useStartAuthListener();

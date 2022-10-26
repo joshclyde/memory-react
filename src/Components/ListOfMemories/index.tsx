@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { HiPlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-import { flashcardsState } from "@Components/state";
+import { flashcardsState } from "src/components/state";
 
 import { Item } from "./Item";
 

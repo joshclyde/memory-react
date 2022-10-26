@@ -1,4 +1,4 @@
-import { startFirebaseEventListening } from "@/firebase/core";
+import { startFirebaseEventListening } from "src/firebase/core";
 
 import { failure, pending, success } from "./authSlice";
 

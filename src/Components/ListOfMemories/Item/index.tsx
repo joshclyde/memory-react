@@ -1,6 +1,6 @@
 import { HiOutlineTag } from "react-icons/hi";
 
-import { state } from "@Components/state";
+import { state } from "src/components/state";
 
 const message = (num: number, time: string) => {
   return `${num}${time}`;

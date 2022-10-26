@@ -1,4 +1,4 @@
-import { Markdown } from "@/Components/Markdown";
+import { Markdown } from "src/components/Markdown";
 
 import { memoryReact } from "./exampleMarkdown";
 

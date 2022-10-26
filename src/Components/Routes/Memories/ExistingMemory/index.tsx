@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 
-import { Markdown } from "@/Components/Markdown";
-import { state } from "@Components/state";
+import { Markdown } from "src/components/Markdown";
+import { state } from "src/components/state";
 
 export const ExistingMemory = () => {
   let { memoryId } = useParams();

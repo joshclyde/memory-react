@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import { ListOfMemories } from "@Components/ListOfMemories";
+import { ListOfMemories } from "src/components/ListOfMemories";
 
 export const Memories = () => {
   return (

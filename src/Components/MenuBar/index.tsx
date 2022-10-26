@@ -11,8 +11,8 @@ import {
 } from "react-icons/hi";
 import { Link, Route, Routes } from "react-router-dom";
 
-import { signInUserThroughGoogle, signOutUser } from "@/firebase";
-import { useAppSelector } from "@/store";
+import { signInUserThroughGoogle, signOutUser } from "src/firebase";
+import { useAppSelector } from "src/store";
 
 const MenuLink = ({ to, children }: { to: string; children: React.ReactNode }) => {
   return (
