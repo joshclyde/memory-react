@@ -3,27 +3,32 @@ import { useMemo, useState } from "react";
 import { HiPlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-import { flashcardsState } from "src/components/state";
+import { useFlashcardsArray } from "src/store/selectors";
 
 import { Item } from "./Item";
 
-export const ListOfMemories = () => {
-  const [searchTerm, setSearchTerm] = useState(``);
+const useLocalFlashcards = (searchTerm: string) => {
+  const flashcards = useFlashcardsArray();
 
-  const flashcards = useMemo(() => {
+  return useMemo(() => {
     if (searchTerm === ``) {
-      return flashcardsState;
+      return flashcards;
     }
 
     return fuzzysort
-      .go(searchTerm, flashcardsState, {
+      .go(searchTerm, flashcards, {
         keys: [`front`, `back`],
         threshold: -100000,
       })
       .map((x) => {
         return x.obj;
       });
-  }, [searchTerm]);
+  }, [flashcards, searchTerm]);
+}
+
+export const ListOfMemories = () => {
+  const [searchTerm, setSearchTerm] = useState(``);
+  const flashcards = useLocalFlashcards(searchTerm);
 
   return (
     <div className="basis-96 shrink-0 bg-dark-2 border-r border-dark-1 h-screen flex flex-col">
