@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 
 import { authSliceReducer } from "./authSlice";
+import { flashcardsSliceReducer } from "./flashcardsSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authSliceReducer,
+    flashcards: flashcardsSliceReducer,
   },
 });
 

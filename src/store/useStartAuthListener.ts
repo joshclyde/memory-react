@@ -1,6 +1,7 @@
 import { startFirebaseEventListening } from "src/firebase/core";
 
-import { failure, pending, success } from "./authSlice";
+import { pending, success } from "./authSlice";
+import { fetchFlashcardsThunk } from "./flashcardsSlice";
 
 import { useAppDispatch } from "./index";
 
@@ -12,6 +13,7 @@ export const useStartAuthListener = () => {
     dispatch(pending());
     startFirebaseEventListening(
       async ({ uid }) => {
+        dispatch(fetchFlashcardsThunk());
         dispatch(success({ uid }));
       },
       () => {
