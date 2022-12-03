@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 
 import { Markdown } from "src/components/Markdown";
-import { state } from "src/components/state";
+import { useFlashcards } from "src/store/selectors";
 
 export const ExistingMemory = () => {
   let { memoryId } = useParams();
-  const memory = memoryId && state.flashcards.flashcardsIncludingDeleted[memoryId];
+  const flashcards = useFlashcards();
+  const memory = memoryId && flashcards[memoryId];
   if (!memory) {
     return <div>Not found</div>;
   }
