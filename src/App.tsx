@@ -10,7 +10,7 @@ import { useStartAuthListener } from "src/store/useStartAuthListener";
 
 import { useAppSelector } from "./store";
 
-export const App = () => {
+const Body = () => {
   useStartAuthListener();
   const { isAuthenticated, authLoading, flashcardsLoding } = useAppSelector((state) => {
     return {
@@ -20,31 +20,37 @@ export const App = () => {
     };
   });
 
-  if (authLoading === `PENDING` || isAuthenticated && flashcardsLoding === `PENDING`) {
-    return `Not ready yet`;
+  if (authLoading === `PENDING` || (isAuthenticated && flashcardsLoding === `PENDING`)) {
+    return <p>Not ready yet</p>;
   }
 
   if (isAuthenticated && flashcardsLoding === `ERROR`) {
-    return `Failed to fetch flashcards`
+    return <p>Failed to fetch flashcards</p>;
   }
 
   return (
+    <Routes>
+      {isAuthenticated ? (
+        <>
+          <Route path="/" element={<Home />} />
+          <Route path="memories" element={<Memories />}>
+            <Route path=":memoryId" element={<ExistingMemory />} />
+            <Route index={true} element={<NewMemory />} />
+          </Route>
+          <Route path="tags" element={<Tags />} />
+        </>
+      ) : (
+        <Route path="*" element={<div>Not logged in</div>} />
+      )}
+    </Routes>
+  );
+};
+
+export const App = () => {
+  return (
     <div className="flex">
       <MenuBar />
-      <Routes>
-        {isAuthenticated ? (
-          <>
-            <Route path="/" element={<Home />} />
-            <Route path="memories" element={<Memories />}>
-              <Route path=":memoryId" element={<ExistingMemory />} />
-              <Route index={true} element={<NewMemory />} />
-            </Route>
-            <Route path="tags" element={<Tags />} />
-          </>
-        ) : (
-          <Route path="*" element={<div>Not logged in</div>} />
-        )}
-      </Routes>
+      <Body />
     </div>
   );
 };
