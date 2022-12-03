@@ -12,19 +12,24 @@ import { useAppSelector } from "./store";
 
 const Body = () => {
   useStartAuthListener();
-  const { isAuthenticated, authLoading, flashcardsLoding } = useAppSelector((state) => {
+  const { isAuthenticated, authLoading, flashcardsLoding, tagsLoading } = useAppSelector((state) => {
     return {
       isAuthenticated: state.auth.isAuthenticated,
       authLoading: state.auth.loading,
       flashcardsLoding: state.flashcards.loading,
+      tagsLoading: state.tags.loading,
     };
   });
 
-  if (authLoading === `PENDING` || (isAuthenticated && flashcardsLoding === `PENDING`)) {
+  if (authLoading === `PENDING` || (isAuthenticated && (flashcardsLoding === `PENDING` || tagsLoading === `PENDING`))) {
     return <p>Not ready yet</p>;
   }
 
   if (isAuthenticated && flashcardsLoding === `ERROR`) {
+    return <p>Failed to fetch flashcards</p>;
+  }
+
+  if (isAuthenticated && tagsLoading === `ERROR`) {
     return <p>Failed to fetch flashcards</p>;
   }
 

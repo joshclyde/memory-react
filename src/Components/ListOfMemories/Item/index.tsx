@@ -1,6 +1,6 @@
 import { HiOutlineTag } from "react-icons/hi";
 
-import { state } from "src/components/state";
+import { useAppSelector } from "src/store";
 
 const message = (num: number, time: string) => {
   return `${num}${time}`;
@@ -44,6 +44,8 @@ export const Item = ({
   tags: Array<string>;
   lastModified: string;
 }) => {
+  const tagsIncludingDeleted = useAppSelector(state => state.tags.tagsIncludingDeleted)
+
   return (
     <div className="p-4 flex">
       <div className="basis-12 shrink-0 text-purple-1">
@@ -55,7 +57,7 @@ export const Item = ({
           {tags.map((tag) => (
             <div key={tag} className="flex items-center gap-[2px]">
               <HiOutlineTag />
-              {state.tags.tagsIncludingDeleted[tag].name}
+              {tagsIncludingDeleted[tag].name}
             </div>
           ))}
         </div>
