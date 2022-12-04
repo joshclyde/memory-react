@@ -22,14 +22,14 @@ const getLastModifiedMessage = (lastModifiedDate: Date) => {
   if (seconds < 60 * 60 * 24 * 7) {
     return message(Math.round(seconds / (60 * 60 * 24)), `d`);
   }
-  if (seconds < 60 * 60 * 24 * 7 * 31) {
+  if (seconds < 60 * 60 * 24 * 31) {
     return message(Math.round(seconds / (60 * 60 * 24 * 7)), `w`);
   }
   return message(
     now.getMonth() -
       lastModifiedDate.getMonth() +
       (now.getFullYear() - lastModifiedDate.getFullYear()) * 12,
-    `y`,
+    `mo`,
   );
 };
 
