@@ -7,15 +7,10 @@ import "./Markdown.css";
 export const Markdown = ({ children }: { children: string }) => {
   const innerHtml = useMemo(() => {
     const reader = new Parser();
-    const writer = new HtmlRenderer();
+    const writer = new HtmlRenderer({ safe: true });
     const node = reader.parse(children);
     return { __html: writer.render(node) };
   }, [children]);
 
-  return (
-    <div
-      className="p-2 Markdown"
-      dangerouslySetInnerHTML={innerHtml}
-    />
-  );
+  return <div className="p-2 Markdown" dangerouslySetInnerHTML={innerHtml} />;
 };
