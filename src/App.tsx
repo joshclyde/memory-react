@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { MenuBar } from "src/components/MenuBar";
 import { Home } from "src/components/Routes/Home";
 import { Memories } from "src/components/Routes/Memories";
-import { ExistingMemory } from "src/components/Routes/Memories/ExistingMemory";
+import { ResettingExistingMemory } from "src/components/Routes/Memories/ExistingMemory";
 import { NewMemory } from "src/components/Routes/Memories/NewMemory";
 import { Tags } from "src/components/Routes/Tags";
 import { useStartAuthListener } from "src/store/useStartAuthListener";
@@ -12,16 +12,21 @@ import { useAppSelector } from "./store";
 
 const Body = () => {
   useStartAuthListener();
-  const { isAuthenticated, authLoading, flashcardsLoding, tagsLoading } = useAppSelector((state) => {
-    return {
-      isAuthenticated: state.auth.isAuthenticated,
-      authLoading: state.auth.loading,
-      flashcardsLoding: state.flashcards.loading,
-      tagsLoading: state.tags.loading,
-    };
-  });
+  const { isAuthenticated, authLoading, flashcardsLoding, tagsLoading } = useAppSelector(
+    (state) => {
+      return {
+        isAuthenticated: state.auth.isAuthenticated,
+        authLoading: state.auth.loading,
+        flashcardsLoding: state.flashcards.loading,
+        tagsLoading: state.tags.loading,
+      };
+    },
+  );
 
-  if (authLoading === `PENDING` || (isAuthenticated && (flashcardsLoding === `PENDING` || tagsLoading === `PENDING`))) {
+  if (
+    authLoading === `PENDING` ||
+    (isAuthenticated && (flashcardsLoding === `PENDING` || tagsLoading === `PENDING`))
+  ) {
     return <p>Not ready yet</p>;
   }
 
@@ -39,7 +44,7 @@ const Body = () => {
         <>
           <Route path="/" element={<Home />} />
           <Route path="memories" element={<Memories />}>
-            <Route path=":memoryId" element={<ExistingMemory />} />
+            <Route path=":memoryId" element={<ResettingExistingMemory />} />
             <Route index={true} element={<NewMemory />} />
           </Route>
           <Route path="tags" element={<Tags />} />
