@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { HiCheck, HiPencil, HiX } from "react-icons/hi";
 import { useParams } from "react-router-dom";
 
+import { TextArea } from "src/components/Design/TextArea";
 import { Markdown } from "src/components/Markdown";
 import { useFlashcards } from "src/store/selectors";
 import { StateFlashcard } from "src/store/types";
@@ -23,10 +24,10 @@ const EditBody = ({ memory }: { memory: StateFlashcard }) => {
   const [back, setBack] = useState(memory.back);
 
   return (
-    <>
-      <textarea value={front} onChange={(event) => setFront(event.target.value)} />
-      <textarea value={back} onChange={(event) => setBack(event.target.value)} />
-    </>
+    <div className="flex flex-col">
+      <TextArea value={front} onChange={(event) => setFront(event.target.value)} />
+      <TextArea className="mt-4" value={back} onChange={(event) => setBack(event.target.value)} />
+    </div>
   );
 };
 
