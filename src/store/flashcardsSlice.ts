@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 import {
-  createFlashcard,
+  createFlashcard as createFlashcardFirestore,
   updateFlashcard as updateFlashcardFirestore,
   fetchFlashcards,
   deleteFlashcard,
@@ -34,13 +34,13 @@ export const fetchFlashcardsThunk = createAsyncThunk(`flashcards/fetch`, async (
   return data;
 });
 
-// async update(id: string, data: FirestoreFlashcardUserInput) {
-//   const firestoreFlashcard = await updateFlashcard(id, data);
-//   this.flashcardsIncludingDeleted[id] = {
-//     ...this.flashcards[id],
-//     ...convertLastModified(firestoreFlashcard),
-//   };
-// },
+export const createFlashcard = createAsyncThunk(
+  `flashcards/create`,
+  async ({ data }: { data: FirestoreFlashcardUserInput }) => {
+    const [id, firestoreFlashcard] = await createFlashcardFirestore(data);
+    return [id, convertComputedFields(firestoreFlashcard)] as const;
+  },
+);
 
 export const updateFlashcard = createAsyncThunk(
   `flashcards/update`,
@@ -64,6 +64,9 @@ export const flashcardsSlice = createSlice({
     });
     builder.addCase(fetchFlashcardsThunk.rejected, (state, action) => {
       state.loading = `ERROR`;
+    });
+    builder.addCase(createFlashcard.fulfilled, (state, action) => {
+      state.flashcardsIncludingDeleted[action.payload[0]] = action.payload[1];
     });
     builder.addCase(updateFlashcard.pending, (state, action) => {
       state.updatePending[action.meta.arg.id] = `PENDING`;
