@@ -17,7 +17,7 @@ export const Checkbox = ({ className, id, name, checked, onChange }: CheckboxPro
         checked={checked}
         onChange={onChange}
       />
-      <label className="pl-2 cursor-pointer" htmlFor={id}>
+      <label className="pl-1 cursor-pointer" htmlFor={id}>
         {name}
       </label>
     </div>
