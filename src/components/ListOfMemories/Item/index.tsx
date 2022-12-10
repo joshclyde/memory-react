@@ -29,7 +29,7 @@ const getLastModifiedMessage = (lastModifiedDate: Date) => {
     now.getMonth() -
       lastModifiedDate.getMonth() +
       (now.getFullYear() - lastModifiedDate.getFullYear()) * 12,
-    `mo`,
+    `M`,
   );
 };
 
