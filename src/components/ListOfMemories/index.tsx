@@ -12,7 +12,9 @@ const useLocalFlashcards = (searchTerm: string) => {
 
   return useMemo(() => {
     if (searchTerm === ``) {
-      return flashcards;
+      return flashcards.sort((a, b) =>
+        new Date(a.lastModified).getTime() > new Date(b.lastModified).getTime() ? -1 : 1,
+      );
     }
 
     return fuzzysort
@@ -24,7 +26,7 @@ const useLocalFlashcards = (searchTerm: string) => {
         return x.obj;
       });
   }, [flashcards, searchTerm]);
-}
+};
 
 export const ListOfMemories = () => {
   const [searchTerm, setSearchTerm] = useState(``);
