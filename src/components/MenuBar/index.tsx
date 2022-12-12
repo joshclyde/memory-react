@@ -37,8 +37,8 @@ const MenuButton = ({
 };
 
 export const MenuBar = () => {
-  const loading = useAppSelector(state => state.auth.loading);
-  const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
+  const loading = useAppSelector((state) => state.auth.loading);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   return (
     <div className="basis-48 shrink-0 flex flex-col text-blue-1 p-4">
@@ -63,14 +63,18 @@ export const MenuBar = () => {
         </Routes>
         Tags
       </MenuLink>
-      {loading === `SUCCESS` && !isAuthenticated && <MenuButton onClick={() => signInUserThroughGoogle()}>
-        <HiLogin className="mr-4" />
-        Login
-      </MenuButton>}
-      {loading === `SUCCESS` && isAuthenticated && <MenuButton onClick={() => signOutUser()}>
-        <HiLogout className="mr-4" />
-        Logout
-      </MenuButton>}
+      {loading === `SUCCESS` && !isAuthenticated && (
+        <MenuButton onClick={() => signInUserThroughGoogle()}>
+          <HiLogin className="mr-4" />
+          Login
+        </MenuButton>
+      )}
+      {loading === `SUCCESS` && isAuthenticated && (
+        <MenuButton onClick={() => signOutUser()}>
+          <HiLogout className="mr-4" />
+          Logout
+        </MenuButton>
+      )}
     </div>
   );
 };

@@ -51,7 +51,6 @@ export const tagsSlice = createSlice({
 
 export const selectTagsIncludingDeleted = (state: RootState) =>
   state.tags.tagsIncludingDeleted;
-export const selectTagsLoading = (state: RootState) =>
-  state.tags.loading;
+export const selectTagsLoading = (state: RootState) => state.tags.loading;
 
 export const tagsSliceReducer = tagsSlice.reducer;

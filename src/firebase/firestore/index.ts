@@ -37,41 +37,39 @@ const getFlashcardsDocumentRef = (flashcardId: string) =>
   doc(db, `/users/${throwOrGetCurrentUserUID()}/flashcards/${flashcardId}`);
 
 export const createTag = async (
-  data: FirestoreTagUserInput
+  data: FirestoreTagUserInput,
 ): Promise<readonly [string, FirestoreTag]> =>
   createDocument(getTagsCollectionRef(), data);
 
 export const createFlashcard = (
-  data: FirestoreFlashcardUserInput
+  data: FirestoreFlashcardUserInput,
 ): Promise<readonly [string, FirestoreFlashcard]> =>
   createDocument(getFlashcardsCollectionRef(), data);
 
 export const updateTag = (
   id: string,
-  data: FirestoreTagUserInput
+  data: FirestoreTagUserInput,
 ): Promise<Omit<FirestoreTag, "createdDate">> =>
   updateDocument(getTagsDocumentRef(id), data);
 
 export const updateFlashcard = (
   id: string,
-  data: FirestoreFlashcardUserInput
+  data: FirestoreFlashcardUserInput,
 ): Promise<Omit<FirestoreFlashcard, "createdDate">> =>
   updateDocument(getFlashcardsDocumentRef(id), data);
 
 export const deleteTag = (
-  id: string
+  id: string,
 ): Promise<Pick<FirestoreTag, "isDeleted" | "lastModified">> =>
   deleteDocument(getTagsDocumentRef(id));
 
 export const deleteFlashcard = (
-  id: string
+  id: string,
 ): Promise<Pick<FirestoreFlashcard, "isDeleted" | "lastModified">> =>
   deleteDocument(getFlashcardsDocumentRef(id));
 
 export const fetchTags = async () => {
-  const { fromCache, fromServer } = await fetchCollection(
-    getTagsCollectionRef()
-  );
+  const { fromCache, fromServer } = await fetchCollection(getTagsCollectionRef());
 
   const tags: Record<string, FirestoreTag> = {};
   [fromCache, fromServer].forEach((snapshot) => {
@@ -89,9 +87,7 @@ export const fetchTags = async () => {
 };
 
 export const fetchFlashcards = async () => {
-  const { fromCache, fromServer } = await fetchCollection(
-    getFlashcardsCollectionRef()
-  );
+  const { fromCache, fromServer } = await fetchCollection(getFlashcardsCollectionRef());
 
   const flashcards: Record<string, FirestoreFlashcard> = {};
   [fromCache, fromServer].forEach((snapshot) => {

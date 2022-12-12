@@ -10,9 +10,7 @@ export interface FirestoreTagUserInput {
   name: string;
 }
 
-export interface FirestoreTag
-  extends FirestoreTagUserInput,
-    FirestoreComputedFields {}
+export interface FirestoreTag extends FirestoreTagUserInput, FirestoreComputedFields {}
 
 export interface FirestoreFlashcardUserInput {
   front: string;

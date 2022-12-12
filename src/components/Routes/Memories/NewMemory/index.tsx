@@ -33,8 +33,8 @@ export const NewMemory = () => {
         }),
       ).unwrap();
       setStatus(`SUCCESS`);
-      setFront(``)
-      setBack(``)
+      setFront(``);
+      setBack(``);
     } catch (rejectedValueOrSerializedError) {
       setStatus(`ERROR`);
     }

@@ -44,7 +44,7 @@ export const consoleLogCurrentUser = () => console.log(getCurrentUser()?.uid);
 */
 export const startFirebaseEventListening = (
   onAuthStateSignedIn: (user: User) => void,
-  onAuthStateSignedOut: () => void
+  onAuthStateSignedOut: () => void,
 ) =>
   new Promise<void>((resolve) => {
     auth.onAuthStateChanged((user) => {

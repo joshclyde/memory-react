@@ -16,15 +16,11 @@ export interface StateFlashcardUserInput {
   tags: Array<string>;
 }
 
-export interface StateFlashcard
-  extends StateFlashcardUserInput,
-    StateComputedFields {}
+export interface StateFlashcard extends StateFlashcardUserInput, StateComputedFields {}
 
 export interface StateReviewUserInput {
   result: "GOOD" | "BAD";
   memoryId: string;
 }
 
-export interface StateReview
-  extends StateReviewUserInput,
-    StateComputedFields {}
+export interface StateReview extends StateReviewUserInput, StateComputedFields {}

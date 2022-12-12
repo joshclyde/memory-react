@@ -43,15 +43,15 @@ ${memory.back}
     }
 
     if (confirmDelete && pending === `PENDING`) {
-      return <div>Deletion in progress...</div>
+      return <div>Deletion in progress...</div>;
     }
 
     if (confirmDelete && pending === `SUCCESS`) {
-      return <div>Memory successfully deleted.</div>
+      return <div>Memory successfully deleted.</div>;
     }
 
     if (confirmDelete && pending === `ERROR`) {
-      return <div>Failed to delete memory.</div>
+      return <div>Failed to delete memory.</div>;
     }
 
     if (confirmDelete) {
@@ -77,32 +77,30 @@ ${memory.back}
 
   const renderActions = () => {
     if (!confirmDelete) {
-      return <>
-        <button title="Edit Memory" type="button" onClick={() => toggleView()}>
-          <HiPencil size="2em" />
-        </button>
-        <button
-          className="mt-4"
-          title="Delete Memory"
-          type="button"
-          onClick={() => {
-            setConfirmDelete(true);
-          }}
-        >
-          <HiTrash size="2em" />
-        </button>
-      </>
+      return (
+        <>
+          <button title="Edit Memory" type="button" onClick={() => toggleView()}>
+            <HiPencil size="2em" />
+          </button>
+          <button
+            className="mt-4"
+            title="Delete Memory"
+            type="button"
+            onClick={() => {
+              setConfirmDelete(true);
+            }}
+          >
+            <HiTrash size="2em" />
+          </button>
+        </>
+      );
     }
-  }
+  };
 
   return (
     <WholeView>
-      <BodyView>
-        {renderBody()}
-      </BodyView>
-      <ActionsView>
-        {renderActions()}
-      </ActionsView>
+      <BodyView>{renderBody()}</BodyView>
+      <ActionsView>{renderActions()}</ActionsView>
     </WholeView>
   );
 };

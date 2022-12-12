@@ -6,9 +6,9 @@ export const convertTimestampToString = (timestamp: Timestamp) =>
   timestamp.toDate().toString();
 
 export const convertLastModified = <
-  T extends { lastModified: FirestoreComputedFields["lastModified"] }
+  T extends { lastModified: FirestoreComputedFields["lastModified"] },
 >(
-  data: T
+  data: T,
 ) => {
   return {
     ...data,
@@ -16,9 +16,7 @@ export const convertLastModified = <
   };
 };
 
-export const convertComputedFields = <T extends FirestoreComputedFields>(
-  data: T
-) => {
+export const convertComputedFields = <T extends FirestoreComputedFields>(data: T) => {
   return {
     ...data,
     createdDate: convertTimestampToString(data.createdDate),

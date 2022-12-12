@@ -9,14 +9,12 @@ const getReviewCollectionRef = () =>
   collection(db, `/users/${throwOrGetCurrentUserUID()}/review`);
 
 export const createReview = (
-  data: FirestoreReviewUserInput
+  data: FirestoreReviewUserInput,
 ): Promise<readonly [string, FirestoreReview]> =>
   createDocument(getReviewCollectionRef(), data);
 
 export const fetchReviews = async () => {
-  const { fromCache, fromServer } = await fetchCollection(
-    getReviewCollectionRef()
-  );
+  const { fromCache, fromServer } = await fetchCollection(getReviewCollectionRef());
 
   const reviews: Record<string, FirestoreReview> = {};
   [fromCache, fromServer].forEach((snapshot) => {

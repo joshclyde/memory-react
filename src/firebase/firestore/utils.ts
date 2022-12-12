@@ -24,7 +24,7 @@ const enableCache = enableMultiTabIndexedDbPersistence(db);
 
 export const createDocument = async <T extends object>(
   collectionRef: CollectionReference,
-  data: T
+  data: T,
 ) => {
   await enableCache;
 
@@ -39,7 +39,7 @@ export const createDocument = async <T extends object>(
 
 export const updateDocument = async <T extends object>(
   documentRef: DocumentReference,
-  data: T
+  data: T,
 ) => {
   await enableCache;
 
@@ -80,7 +80,7 @@ export const fetchCollection = async (collectionRef: CollectionReference) => {
     snapshots.fromCache = await getDocsFromCache(collectionRef);
     // eslint-disable-next-line no-console
     console.log(
-      `Found ${snapshots.fromCache.size} cached documents for ${collectionRef.path}`
+      `Found ${snapshots.fromCache.size} cached documents for ${collectionRef.path}`,
     );
   } catch (error) {
     /*
@@ -102,7 +102,7 @@ export const fetchCollection = async (collectionRef: CollectionReference) => {
     snapshots.fromServer = await getDocsFromServer(collectionRef);
     // eslint-disable-next-line no-console
     console.log(
-      `There were no documents in the cache, so fetched all ${snapshots.fromServer.size} documents for ${collectionRef.path}.`
+      `There were no documents in the cache, so fetched all ${snapshots.fromServer.size} documents for ${collectionRef.path}.`,
     );
   } else {
     // If there was a cache, for each collection, fetch all documents with a more recent lastModified
@@ -114,11 +114,11 @@ export const fetchCollection = async (collectionRef: CollectionReference) => {
       }
     });
     snapshots.fromServer = await getDocsFromServer(
-      query(collectionRef, where(`lastModified`, `>`, mostRecentLastModified))
+      query(collectionRef, where(`lastModified`, `>`, mostRecentLastModified)),
     );
     // eslint-disable-next-line no-console
     console.log(
-      `Fetched ${snapshots.fromServer.size} documents for ${collectionRef.path} that were not updated in the cache.`
+      `Fetched ${snapshots.fromServer.size} documents for ${collectionRef.path} that were not updated in the cache.`,
     );
   }
 
