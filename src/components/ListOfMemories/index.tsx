@@ -1,7 +1,7 @@
 import fuzzysort from "fuzzysort";
 import { useMemo, useState } from "react";
 import { HiPlus } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { useFlashcardsArray } from "src/store/selectors";
 
@@ -49,9 +49,9 @@ export const ListOfMemories = () => {
         {flashcards.map(({ id, ...props }) => {
           return (
             <div key={id} className="border-dark-1">
-              <Link to={`/memories/${id}`}>
-                <Item {...props} />
-              </Link>
+              <NavLink to={`/memories/${id}`}>
+                {({ isActive }) => <Item {...props} isActive={isActive} />}
+              </NavLink>
             </div>
           );
         })}

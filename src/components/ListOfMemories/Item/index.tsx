@@ -38,16 +38,18 @@ export const Item = ({
   back,
   tags,
   lastModified,
+  isActive,
 }: {
   front: string;
   back: string;
   tags: Array<string>;
   lastModified: string;
+  isActive: boolean;
 }) => {
-  const tagsIncludingDeleted = useAppSelector(state => state.tags.tagsIncludingDeleted)
+  const tagsIncludingDeleted = useAppSelector((state) => state.tags.tagsIncludingDeleted);
 
   return (
-    <div className="p-4 flex">
+    <div className={`p-4 flex ${isActive ? `border-l-4 border-purple-1` : `ml-[4px]`}`}>
       <div className="basis-12 shrink-0 text-purple-1">
         {getLastModifiedMessage(new Date(lastModified))}
       </div>
