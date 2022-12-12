@@ -3,8 +3,8 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import {
   createFlashcard as createFlashcardFirestore,
   updateFlashcard as updateFlashcardFirestore,
+  deleteFlashcard as deleteFlashcardFirestore,
   fetchFlashcards,
-  deleteFlashcard,
 } from "src/firebase";
 import { FirestoreFlashcardUserInput } from "src/firebase/firestore/types";
 import { convertComputedFields, convertLastModified } from "src/utils/firestore";
@@ -17,12 +17,14 @@ export interface FlashcardsState {
   flashcardsIncludingDeleted: Record<string, StateFlashcard>;
   loading: null | "PENDING" | "SUCCESS" | "ERROR";
   updatePending: Record<string, "PENDING" | "SUCCESS" | "ERROR">;
+  deletePending: Record<string, "PENDING" | "SUCCESS" | "ERROR">;
 }
 
 const initialState: FlashcardsState = {
   flashcardsIncludingDeleted: {},
   loading: null,
   updatePending: {},
+  deletePending: {},
 };
 
 export const fetchFlashcardsThunk = createAsyncThunk(`flashcards/fetch`, async () => {
@@ -46,6 +48,14 @@ export const updateFlashcard = createAsyncThunk(
   `flashcards/update`,
   async ({ id, data }: { id: string; data: FirestoreFlashcardUserInput }) => {
     const firestoreFlashcard = await updateFlashcardFirestore(id, data);
+    return convertLastModified(firestoreFlashcard);
+  },
+);
+
+export const deleteFlashcard = createAsyncThunk(
+  `flashcards/delete`,
+  async (id: string) => {
+    const firestoreFlashcard = await deleteFlashcardFirestore(id);
     return convertLastModified(firestoreFlashcard);
   },
 );
@@ -80,6 +90,19 @@ export const flashcardsSlice = createSlice({
     });
     builder.addCase(updateFlashcard.rejected, (state, action) => {
       state.updatePending[action.meta.arg.id] = `ERROR`;
+    });
+    builder.addCase(deleteFlashcard.pending, (state, action) => {
+      state.deletePending[action.meta.arg] = `PENDING`;
+    });
+    builder.addCase(deleteFlashcard.fulfilled, (state, action) => {
+      state.flashcardsIncludingDeleted[action.meta.arg] = {
+        ...state.flashcardsIncludingDeleted[action.meta.arg],
+        ...action.payload,
+      };
+      state.deletePending[action.meta.arg] = `SUCCESS`;
+    });
+    builder.addCase(deleteFlashcard.rejected, (state, action) => {
+      state.deletePending[action.meta.arg] = `ERROR`;
     });
   },
 });

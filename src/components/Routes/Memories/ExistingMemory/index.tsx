@@ -19,7 +19,7 @@ export const ExistingMemory = () => {
   return edit ? (
     <EditMemory memoryId={memoryId} memory={memory} toggleView={() => setEdit(false)} />
   ) : (
-    <ViewMemory memory={memory} toggleView={() => setEdit(true)} />
+    <ViewMemory memoryId={memoryId} memory={memory} toggleView={() => setEdit(true)} />
   );
 };
 
