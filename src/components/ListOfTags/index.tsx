@@ -19,7 +19,7 @@ const useLocalTags = (searchTerm: string) => {
 
     return fuzzysort
       .go(searchTerm, tags, {
-        keys: [`front`, `back`],
+        keys: [`name`],
         threshold: -100000,
       })
       .map((x) => {
