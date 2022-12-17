@@ -8,6 +8,7 @@ import { NewMemory } from "src/components/Routes/Memories/NewMemory";
 import { Tags } from "src/components/Routes/Tags";
 import { useStartAuthListener } from "src/store/useStartAuthListener";
 
+import { Learn } from "./components/Routes/Learn";
 import { ResettingExistingTag } from "./components/Routes/Tags/ExistingTag";
 import { NewTag } from "./components/Routes/Tags/NewTag";
 import { useAppSelector } from "./store";
@@ -52,6 +53,9 @@ const Body = () => {
           <Route path="tags" element={<Tags />}>
             <Route path=":tagId" element={<ResettingExistingTag />} />
             <Route index={true} element={<NewTag />} />
+          </Route>
+          <Route path="learn">
+            <Route path=":tagId" element={<Learn />} />
           </Route>
         </>
       ) : (
