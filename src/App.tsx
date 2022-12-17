@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import { MenuBar } from "src/components/MenuBar";
+import { MenuBar } from "src/components/Design/MenuBar";
 import { Home } from "src/components/Routes/Home";
 import { Memories } from "src/components/Routes/Memories";
 import { ResettingExistingMemory } from "src/components/Routes/Memories/ExistingMemory";

@@ -1,12 +1,9 @@
-import { HiOutlineTag } from "react-icons/hi";
-
-import { useAppSelector } from "src/store";
 
 const message = (num: number, time: string) => {
   return `${num}${time}`;
 };
 
-const getLastModifiedMessage = (lastModifiedDate: Date) => {
+export const getLastModifiedMessage = (lastModifiedDate: Date) => {
   const now = new Date(Date.now());
   const seconds = (now.getTime() - lastModifiedDate.getTime()) / 1000;
 
@@ -30,26 +27,5 @@ const getLastModifiedMessage = (lastModifiedDate: Date) => {
       lastModifiedDate.getMonth() +
       (now.getFullYear() - lastModifiedDate.getFullYear()) * 12,
     `M`,
-  );
-};
-
-export const Item = ({
-  name,
-  lastModified,
-  isActive,
-}: {
-  name: string;
-  lastModified: string;
-  isActive: boolean;
-}) => {
-  return (
-    <div className={`p-4 flex ${isActive ? `border-l-4 border-purple-1` : `ml-[4px]`}`}>
-      <div className="basis-12 shrink-0 text-purple-1">
-        {getLastModifiedMessage(new Date(lastModified))}
-      </div>
-      <div className="flex flex-col w-full">
-        <div className="text-light-2 mb-1">{name}</div>
-      </div>
-    </div>
   );
 };
