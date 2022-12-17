@@ -8,16 +8,16 @@ interface CheckboxProps {
 
 export const Checkbox = ({ className, id, name, checked, onChange }: CheckboxProps) => {
   return (
-    <div className={className}>
+    <div className={`flex items-center ${className}`}>
       <input
-        className="cursor-pointer"
+        className={`cursor-pointer appearance-none w-4 h-4 rounded-sm ${checked ? `bg-green-1` : `bg-dark-1`}`}
         type="checkbox"
         id={id}
         name={name}
         checked={checked}
         onChange={onChange}
       />
-      <label className="pl-1 cursor-pointer" htmlFor={id}>
+      <label className="pl-2 cursor-pointer" htmlFor={id}>
         {name}
       </label>
     </div>
