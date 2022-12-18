@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { HiCheck } from "react-icons/hi";
 
+import { ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch } from "src/store";
 import { createTag } from "src/store/tagsSlice";
 
-import { ActionsView, BodyView, WholeView } from "../ExistingTag/core";
 
 export const NewTag = () => {
   const [name, setName] = useState(``);

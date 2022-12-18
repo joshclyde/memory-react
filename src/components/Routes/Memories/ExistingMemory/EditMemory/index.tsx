@@ -2,13 +2,13 @@ import { useState } from "react";
 import { HiCheck, HiX } from "react-icons/hi";
 
 import { Checkbox } from "src/components/Design/Checkbox";
+import { ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { updateFlashcard } from "src/store/flashcardsSlice";
 import { useTagsFormOptions } from "src/store/selectors";
 import { StateFlashcard } from "src/store/types";
 
-import { ActionsView, BodyView, WholeView } from "../core";
 
 export const EditMemory = ({
   memoryId,

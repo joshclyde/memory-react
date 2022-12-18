@@ -20,6 +20,11 @@ export const useFlashcardsArray = () => {
   return Object.entries(flashcards).map(([id, values]) => ({ ...values, id }));
 };
 
+export const useFlashcardsArrayFromTag = (tagId: string) => {
+  const flashcards = useFlashcardsArray();
+  return flashcards.filter(({ tags }) => tags.includes(tagId));
+};
+
 export const useTags = (): Record<string, StateTag> => {
   const tagsIncludingDeleted = useAppSelector((state) => state.tags.tagsIncludingDeleted);
   return Object.entries(tagsIncludingDeleted)

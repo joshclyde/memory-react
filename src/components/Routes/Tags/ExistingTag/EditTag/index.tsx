@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { HiCheck, HiX } from "react-icons/hi";
 
+import { ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { updateTag } from "src/store/tagsSlice";
 import { StateTag } from "src/store/types";
 
-import { ActionsView, BodyView, WholeView } from "../core";
 
 export const EditTag = ({
   tagId,
