@@ -29,7 +29,7 @@ const initialState: TagsState = {
 
 export const fetchTagsThunk = createAsyncThunk(`tags/fetch`, async () => {
   const firestoreTags = await fetchTags();
-  let data: Record<string, StateTag> = {};
+  const data: Record<string, StateTag> = {};
   Object.entries(firestoreTags).forEach(([id, firestoreTag]) => {
     data[id] = convertComputedFields(firestoreTag);
   });

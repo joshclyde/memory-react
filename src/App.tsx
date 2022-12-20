@@ -15,20 +15,21 @@ import { useAppSelector } from "./store";
 
 const Body = () => {
   useStartAuthListener();
-  const { isAuthenticated, authLoading, flashcardsLoding, tagsLoading } = useAppSelector(
-    (state) => {
+  const { isAuthenticated, authLoading, flashcardsLoding, tagsLoading, reviewsLoading } =
+    useAppSelector((state) => {
       return {
         isAuthenticated: state.auth.isAuthenticated,
         authLoading: state.auth.loading,
         flashcardsLoding: state.flashcards.loading,
         tagsLoading: state.tags.loading,
+        reviewsLoading: state.reviews.loading,
       };
-    },
-  );
+    });
 
   if (
     authLoading === `PENDING` ||
-    (isAuthenticated && (flashcardsLoding === `PENDING` || tagsLoading === `PENDING`))
+    (isAuthenticated &&
+      (flashcardsLoding === `PENDING` || tagsLoading === `PENDING` || reviewsLoading === `PENDING`))
   ) {
     return <p>Not ready yet</p>;
   }
@@ -39,6 +40,10 @@ const Body = () => {
 
   if (isAuthenticated && tagsLoading === `ERROR`) {
     return <p>Failed to fetch flashcards</p>;
+  }
+
+  if (isAuthenticated && reviewsLoading === `ERROR`) {
+    return <p>Failed to fetch reviews</p>;
   }
 
   return (

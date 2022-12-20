@@ -4,6 +4,7 @@ import type { TypedUseSelectorHook } from "react-redux";
 
 import { authSliceReducer } from "./authSlice";
 import { flashcardsSliceReducer } from "./flashcardsSlice";
+import { reviewsSliceReducer } from "./reviewsSlice";
 import { tagsSliceReducer } from "./tagsSlice";
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     auth: authSliceReducer,
     flashcards: flashcardsSliceReducer,
     tags: tagsSliceReducer,
+    reviews: reviewsSliceReducer,
   },
 });
 
