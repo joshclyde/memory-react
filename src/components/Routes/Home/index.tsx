@@ -24,10 +24,10 @@ export const Home = () => {
   const tags = useLocalTags();
 
   return (
-    <div className="flex flex-col gap-2 bg-dark-2 w-full p-8">
+    <div className="flex flex-col gap-2 bg-dark-2 w-full p-8 h-screen overflow-y-scroll">
       {tags.map(({ id, name, count }) => {
         return (
-          <Link key={id} to={`/learn/${id}`}>
+          <Link key={id} to={`/learn/${id}`} className="w-fit">
             {name} - Count: {count}
           </Link>
         );
