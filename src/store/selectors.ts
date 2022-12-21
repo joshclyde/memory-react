@@ -1,6 +1,16 @@
 import { StateFlashcard, StateTag } from "./types";
 
-import { useAppSelector } from ".";
+import { RootState, useAppSelector } from ".";
+
+const selectFlashcards = (state: RootState): Record<string, StateFlashcard> => {
+  return Object.entries(state.flashcards.flashcardsIncludingDeleted)
+    .filter(([key, value]) => !value.isDeleted)
+    .reduce((obj, [key, value]) => {
+      return Object.assign(obj, {
+        [key]: value,
+      });
+    }, {});
+};
 
 export const useFlashcards = (): Record<string, StateFlashcard> => {
   const flashcardsIncludingDeleted = useAppSelector(
@@ -44,4 +54,11 @@ export const useTagsArray = () => {
 export const useTagsFormOptions = (): Array<{ id: string; name: string }> => {
   const tags = useTags();
   return Object.entries(tags).map(([id, { name }]) => ({ id, name }));
+};
+
+export const useTagFlashcardsCount = (tagId: string) => {
+  return useAppSelector((state) => {
+    return Object.values(selectFlashcards(state)).filter((x) => x.tags.includes(tagId))
+      .length;
+  });
 };
