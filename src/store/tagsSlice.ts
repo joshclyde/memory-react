@@ -1,10 +1,10 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
   createTag as createTagFirestore,
-  updateTag as updateTagFirestore,
   deleteTag as deleteTagFirestore,
   fetchTags,
+  updateTag as updateTagFirestore,
 } from "src/firebase";
 import { FirestoreTagUserInput } from "src/firebase/firestore/types";
 import { convertComputedFields, convertLastModified } from "src/utils/firestore";
@@ -62,14 +62,14 @@ export const tagsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchTagsThunk.pending, (state, action) => {
+    builder.addCase(fetchTagsThunk.pending, (state) => {
       state.loading = `PENDING`;
     });
     builder.addCase(fetchTagsThunk.fulfilled, (state, action) => {
       state.tagsIncludingDeleted = action.payload;
       state.loading = `SUCCESS`;
     });
-    builder.addCase(fetchTagsThunk.rejected, (state, action) => {
+    builder.addCase(fetchTagsThunk.rejected, (state) => {
       state.loading = `ERROR`;
     });
     builder.addCase(createTag.fulfilled, (state, action) => {

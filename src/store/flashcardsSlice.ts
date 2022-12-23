@@ -1,10 +1,8 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
-  createFlashcard as createFlashcardFirestore,
-  updateFlashcard as updateFlashcardFirestore,
-  deleteFlashcard as deleteFlashcardFirestore,
-  fetchFlashcards,
+  createFlashcard as createFlashcardFirestore, deleteFlashcard as deleteFlashcardFirestore,
+  fetchFlashcards, updateFlashcard as updateFlashcardFirestore
 } from "src/firebase";
 import { FirestoreFlashcardUserInput } from "src/firebase/firestore/types";
 import { convertComputedFields, convertLastModified } from "src/utils/firestore";
@@ -65,14 +63,14 @@ export const flashcardsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchFlashcardsThunk.pending, (state, action) => {
+    builder.addCase(fetchFlashcardsThunk.pending, (state) => {
       state.loading = `PENDING`;
     });
     builder.addCase(fetchFlashcardsThunk.fulfilled, (state, action) => {
       state.flashcardsIncludingDeleted = action.payload;
       state.loading = `SUCCESS`;
     });
-    builder.addCase(fetchFlashcardsThunk.rejected, (state, action) => {
+    builder.addCase(fetchFlashcardsThunk.rejected, (state) => {
       state.loading = `ERROR`;
     });
     builder.addCase(createFlashcard.fulfilled, (state, action) => {

@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { HiArrowRight, HiEye } from "react-icons/hi";
 import { useParams } from "react-router-dom";
-import { IconButton } from "src/components/Design/IconButton";
 
 import {
   ActionsIconButton,
   ActionsView,
   BodyView,
-  WholeView,
+  WholeView
 } from "src/components/Design/LayoutRight";
 import { useFlashcardsArrayFromTag } from "src/store/selectors";
 

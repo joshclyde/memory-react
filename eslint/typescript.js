@@ -32,6 +32,16 @@ module.exports = {
   "@typescript-eslint/no-explicit-any": `off`, // TODO: turn this one on and fix errors
   "@typescript-eslint/no-extra-non-null-assertion": `error`,
 
+  "no-unused-vars": `off`, // disable the base rule
+  "@typescript-eslint/no-unused-vars": [
+    `error`,
+    {
+      argsIgnorePattern: `^_`,
+      varsIgnorePattern: `^_`,
+      caughtErrorsIgnorePattern: `^_`,
+    },
+  ],
+
   "@typescript-eslint/quotes": [`error`, `backtick`],
   // note you must disable the base rule as it can report incorrect errors
   // "require-await": `off`,

@@ -11,6 +11,9 @@ module.exports = {
       jsx: true,
     },
   },
+  env: {
+    browser: true,
+  },
   plugins: [`@typescript-eslint`, `import`, `react-hooks`, `react`],
   settings: {
     "import/resolver": {
@@ -23,7 +26,11 @@ module.exports = {
       version: `detect`,
     },
   },
-  extends: [`prettier`],
-  rules,
+  extends: [`prettier`, `eslint:recommended`],
+  rules: {
+    ...rules,
+    "no-unused-vars": `off`, // typescript eslint has this rule
+    "no-undef": `off`, // just let typescript handle this
+  },
   ignorePatterns: [`vite.config.ts`, `tailwind.config.js`, `postcss.config.js`],
 };

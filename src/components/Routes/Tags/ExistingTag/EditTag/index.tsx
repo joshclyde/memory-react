@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { HiCheck, HiX } from "react-icons/hi";
 
-import { ActionsIconButton, ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
+import {
+  ActionsIconButton,
+  ActionsView,
+  BodyView,
+  WholeView,
+} from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { updateTag } from "src/store/tagsSlice";
 import { StateTag } from "src/store/types";
-
 
 export const EditTag = ({
   tagId,
@@ -18,25 +22,19 @@ export const EditTag = ({
   toggleView: () => void;
 }) => {
   const [name, setName] = useState(tag.name);
-  const [status, setStatus] = useState<null | "PENDING" | "ERROR">(null);
   const dispatch = useAppDispatch();
   const pending = useAppSelector((state) => state.tags.updatePending[tagId]);
 
   const save = async () => {
-    setStatus(`PENDING`);
-    try {
-      await dispatch(
-        updateTag({
-          id: tagId,
-          data: {
-            name,
-          },
-        }),
-      ).unwrap();
-      toggleView();
-    } catch (rejectedValueOrSerializedError) {
-      setStatus(`ERROR`);
-    }
+    await dispatch(
+      updateTag({
+        id: tagId,
+        data: {
+          name,
+        },
+      }),
+    ).unwrap();
+    toggleView();
   };
 
   return (
@@ -53,13 +51,17 @@ export const EditTag = ({
         {pending === `ERROR` && `Failed to save.`}
       </BodyView>
       <ActionsView>
-        <ActionsIconButton title="Cancel Changes" onClick={() => toggleView()} Icon={HiX} />
+        <ActionsIconButton
+          title="Cancel Changes"
+          onClick={() => toggleView()}
+          Icon={HiX}
+        />
         <ActionsIconButton
           title="Save Changes"
           className="mt-4"
           onClick={() => save()}
           Icon={HiCheck}
-         />
+        />
       </ActionsView>
     </WholeView>
   );

@@ -6,14 +6,12 @@ import { getLastModifiedMessage } from "src/utils/getLastModifiedMessage";
 
 export const MemoryItem = ({
   front,
-  back,
   tags,
   lastModified,
   id
 }: {
   id: string;
   front: string;
-  back: string;
   tags: Array<string>;
   lastModified: string;
 }) => {

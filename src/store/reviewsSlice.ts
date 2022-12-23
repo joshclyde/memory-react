@@ -44,14 +44,14 @@ export const reviewsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchReviewsThunk.pending, (state, action) => {
+    builder.addCase(fetchReviewsThunk.pending, (state) => {
       state.loading = `PENDING`;
     });
     builder.addCase(fetchReviewsThunk.fulfilled, (state, action) => {
       state.reviews = action.payload;
       state.loading = `SUCCESS`;
     });
-    builder.addCase(fetchReviewsThunk.rejected, (state, action) => {
+    builder.addCase(fetchReviewsThunk.rejected, (state) => {
       state.loading = `ERROR`;
     });
     builder.addCase(createReview.fulfilled, (state, action) => {

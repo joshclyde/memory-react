@@ -4,7 +4,7 @@ import { RootState, useAppSelector } from ".";
 
 const selectFlashcards = (state: RootState): Record<string, StateFlashcard> => {
   return Object.entries(state.flashcards.flashcardsIncludingDeleted)
-    .filter(([key, value]) => !value.isDeleted)
+    .filter(([, value]) => !value.isDeleted)
     .reduce((obj, [key, value]) => {
       return Object.assign(obj, {
         [key]: value,
@@ -17,7 +17,7 @@ export const useFlashcards = (): Record<string, StateFlashcard> => {
     (state) => state.flashcards.flashcardsIncludingDeleted,
   );
   return Object.entries(flashcardsIncludingDeleted)
-    .filter(([key, value]) => !value.isDeleted)
+    .filter(([, value]) => !value.isDeleted)
     .reduce((obj, [key, value]) => {
       return Object.assign(obj, {
         [key]: value,
@@ -38,7 +38,7 @@ export const useFlashcardsArrayFromTag = (tagId: string) => {
 export const useTags = (): Record<string, StateTag> => {
   const tagsIncludingDeleted = useAppSelector((state) => state.tags.tagsIncludingDeleted);
   return Object.entries(tagsIncludingDeleted)
-    .filter(([key, value]) => !value.isDeleted)
+    .filter(([, value]) => !value.isDeleted)
     .reduce((obj, [key, value]) => {
       return Object.assign(obj, {
         [key]: value,
