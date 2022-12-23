@@ -56,12 +56,7 @@ export const EditTag = ({
           onClick={() => toggleView()}
           Icon={HiX}
         />
-        <ActionsIconButton
-          title="Save Changes"
-          className="mt-4"
-          onClick={() => save()}
-          Icon={HiCheck}
-        />
+        <ActionsIconButton title="Save Changes" onClick={() => save()} Icon={HiCheck} />
       </ActionsView>
     </WholeView>
   );

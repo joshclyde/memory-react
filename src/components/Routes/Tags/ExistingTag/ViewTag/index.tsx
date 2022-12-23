@@ -82,7 +82,6 @@ export const ViewTag = ({
             Icon={HiPencil}
           />
           <ActionsIconButton
-            className="mt-4"
             title="Delete Tag"
             onClick={() => {
               setConfirmDelete(true);
