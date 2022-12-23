@@ -41,11 +41,7 @@ export const EditTag = ({
     <WholeView>
       <BodyView>
         <div className="flex flex-col">
-          <TextArea
-            className="mt-4"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
+          <TextArea value={name} onChange={(event) => setName(event.target.value)} />
         </div>
         {pending === `PENDING` && `Submitting...`}
         {pending === `ERROR` && `Failed to save.`}

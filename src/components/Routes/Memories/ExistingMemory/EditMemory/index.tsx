@@ -51,7 +51,7 @@ export const EditMemory = ({
   return (
     <WholeView>
       <BodyView>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           <fieldset className="flex flex-wrap justify-between gap-2">
             {tagsFormOptions.map(({ id, name }) => {
               return (
