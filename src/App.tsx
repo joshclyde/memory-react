@@ -29,7 +29,9 @@ const Body = () => {
   if (
     authLoading === `PENDING` ||
     (isAuthenticated &&
-      (flashcardsLoding === `PENDING` || tagsLoading === `PENDING` || reviewsLoading === `PENDING`))
+      (flashcardsLoding === `PENDING` ||
+        tagsLoading === `PENDING` ||
+        reviewsLoading === `PENDING`))
   ) {
     return <p>Not ready yet</p>;
   }

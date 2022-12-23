@@ -2,12 +2,16 @@ import { useState } from "react";
 import { HiCheck } from "react-icons/hi";
 
 import { Checkbox } from "src/components/Design/Checkbox";
-import { ActionsIconButton, ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
+import {
+  ActionsIconButton,
+  ActionsView,
+  BodyView,
+  WholeView,
+} from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch } from "src/store";
 import { createFlashcard } from "src/store/flashcardsSlice";
 import { useTagsFormOptions } from "src/store/selectors";
-
 
 export const NewMemory = () => {
   const [front, setFront] = useState(``);
@@ -78,7 +82,7 @@ export const NewMemory = () => {
           className="mt-4"
           onClick={() => save()}
           Icon={HiCheck}
-         />
+        />
       </ActionsView>
     </WholeView>
   );

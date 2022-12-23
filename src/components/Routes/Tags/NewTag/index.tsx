@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { HiCheck } from "react-icons/hi";
 
-import { ActionsIconButton, ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
+import {
+  ActionsIconButton,
+  ActionsView,
+  BodyView,
+  WholeView,
+} from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch } from "src/store";
 import { createTag } from "src/store/tagsSlice";
-
 
 export const NewTag = () => {
   const [name, setName] = useState(``);
@@ -44,7 +48,7 @@ export const NewTag = () => {
           className="mt-4"
           onClick={() => save()}
           Icon={HiCheck}
-         />
+        />
       </ActionsView>
     </WholeView>
   );

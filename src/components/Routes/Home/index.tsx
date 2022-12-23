@@ -1,9 +1,6 @@
 import { Link } from "src/components/Design/Link";
-import {
-  useFlashcardsArray, useTagsArray
-} from "src/store/selectors";
+import { useFlashcardsArray, useTagsArray } from "src/store/selectors";
 import { sortByNumericField } from "src/utils/sort";
-
 
 const useLocalTags = () => {
   const tags = useTagsArray();

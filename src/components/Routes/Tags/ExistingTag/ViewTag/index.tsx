@@ -2,11 +2,15 @@ import { useState } from "react";
 import { HiPencil, HiTrash } from "react-icons/hi";
 
 import { Button } from "src/components/Design/Button";
-import { ActionsIconButton, ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
+import {
+  ActionsIconButton,
+  ActionsView,
+  BodyView,
+  WholeView,
+} from "src/components/Design/LayoutRight";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { deleteTag } from "src/store/tagsSlice";
 import { StateTag } from "src/store/types";
-
 
 export const ViewTag = ({
   tagId,
@@ -72,7 +76,11 @@ export const ViewTag = ({
     if (!confirmDelete) {
       return (
         <>
-          <ActionsIconButton title="Edit Tag" onClick={() => toggleView()} Icon={HiPencil} />
+          <ActionsIconButton
+            title="Edit Tag"
+            onClick={() => toggleView()}
+            Icon={HiPencil}
+          />
           <ActionsIconButton
             className="mt-4"
             title="Delete Tag"
@@ -80,7 +88,7 @@ export const ViewTag = ({
               setConfirmDelete(true);
             }}
             Icon={HiTrash}
-           />
+          />
         </>
       );
     }

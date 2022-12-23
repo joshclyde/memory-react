@@ -6,7 +6,7 @@ import {
   ActionsIconButton,
   ActionsView,
   BodyView,
-  WholeView
+  WholeView,
 } from "src/components/Design/LayoutRight";
 import { useFlashcardsArrayFromTag } from "src/store/selectors";
 
@@ -47,7 +47,7 @@ ${expand && currentFlashcard.back}
             title="Show answer"
             onClick={() => setExpand(true)}
             Icon={HiEye}
-           />
+          />
         )}
         {expand && (
           <ActionsIconButton

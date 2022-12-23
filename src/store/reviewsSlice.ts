@@ -1,11 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import {
-  createReview as createReviewFirestore, fetchReviews
-} from "src/firebase";
-import {
-  FirestoreReviewUserInput
-} from "src/firebase/firestore/types";
+import { createReview as createReviewFirestore, fetchReviews } from "src/firebase";
+import { FirestoreReviewUserInput } from "src/firebase/firestore/types";
 import { convertComputedFields } from "src/utils/firestore";
 
 import { StateReview } from "./types";

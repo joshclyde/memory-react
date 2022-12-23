@@ -1,4 +1,3 @@
-
 const message = (num: number, time: string) => {
   return `${num}${time}`;
 };

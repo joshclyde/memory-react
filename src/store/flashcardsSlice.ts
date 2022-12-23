@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
-  createFlashcard as createFlashcardFirestore, deleteFlashcard as deleteFlashcardFirestore,
-  fetchFlashcards, updateFlashcard as updateFlashcardFirestore
+  createFlashcard as createFlashcardFirestore,
+  deleteFlashcard as deleteFlashcardFirestore,
+  fetchFlashcards,
+  updateFlashcard as updateFlashcardFirestore,
 } from "src/firebase";
 import { FirestoreFlashcardUserInput } from "src/firebase/firestore/types";
 import { convertComputedFields, convertLastModified } from "src/utils/firestore";

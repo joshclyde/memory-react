@@ -8,7 +8,7 @@ export const MemoryItem = ({
   front,
   tags,
   lastModified,
-  id
+  id,
 }: {
   id: string;
   front: string;
