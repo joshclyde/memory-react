@@ -13,7 +13,7 @@ export const ActionsIconButton = ({
 };
 
 export const ActionsView = ({ children }: { children: React.ReactNode }) => {
-  return <div className="flex flex-col">{children}</div>;
+  return <div className="flex flex-col gap-4">{children}</div>;
 };
 
 export const BodyView = ({

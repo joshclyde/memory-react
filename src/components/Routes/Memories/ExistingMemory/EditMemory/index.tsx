@@ -67,16 +67,8 @@ export const EditMemory = ({
               );
             })}
           </fieldset>
-          <TextArea
-            className="mt-4"
-            value={front}
-            onChange={(event) => setFront(event.target.value)}
-          />
-          <TextArea
-            className="mt-4"
-            value={back}
-            onChange={(event) => setBack(event.target.value)}
-          />
+          <TextArea value={front} onChange={(event) => setFront(event.target.value)} />
+          <TextArea value={back} onChange={(event) => setBack(event.target.value)} />
         </div>
         {pending === `PENDING` && `Submitting...`}
         {pending === `ERROR` && `Failed to save.`}
@@ -87,12 +79,7 @@ export const EditMemory = ({
           onClick={() => toggleView()}
           Icon={HiX}
         />
-        <ActionsIconButton
-          title="Save Changes"
-          className="mt-4"
-          onClick={() => save()}
-          Icon={HiCheck}
-        />
+        <ActionsIconButton title="Save Changes" onClick={() => save()} Icon={HiCheck} />
       </ActionsView>
     </WholeView>
   );

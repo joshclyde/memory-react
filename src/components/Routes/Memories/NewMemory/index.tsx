@@ -77,12 +77,7 @@ export const NewMemory = () => {
         {status === `ERROR` && `Failed to save.`}
       </BodyView>
       <ActionsView>
-        <ActionsIconButton
-          title="Save Changes"
-          className="mt-4"
-          onClick={() => save()}
-          Icon={HiCheck}
-        />
+        <ActionsIconButton title="Save Changes" onClick={() => save()} Icon={HiCheck} />
       </ActionsView>
     </WholeView>
   );

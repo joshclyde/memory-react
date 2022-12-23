@@ -89,7 +89,6 @@ ${memory.back}
             Icon={HiPencil}
           />
           <ActionsIconButton
-            className="mt-4"
             title="Delete Memory"
             onClick={() => {
               setConfirmDelete(true);
