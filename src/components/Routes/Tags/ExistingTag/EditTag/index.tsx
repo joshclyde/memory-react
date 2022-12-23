@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HiCheck, HiX } from "react-icons/hi";
 
-import { ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
+import { ActionsIconButton, ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { updateTag } from "src/store/tagsSlice";
@@ -53,17 +53,13 @@ export const EditTag = ({
         {pending === `ERROR` && `Failed to save.`}
       </BodyView>
       <ActionsView>
-        <button title="Cancel Changes" type="button" onClick={() => toggleView()}>
-          <HiX size="2em" />
-        </button>
-        <button
+        <ActionsIconButton title="Cancel Changes" onClick={() => toggleView()} Icon={HiX} />
+        <ActionsIconButton
           title="Save Changes"
-          type="button"
           className="mt-4"
           onClick={() => save()}
-        >
-          <HiCheck size="2em" />
-        </button>
+          Icon={HiCheck}
+         />
       </ActionsView>
     </WholeView>
   );

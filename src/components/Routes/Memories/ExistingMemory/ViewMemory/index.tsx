@@ -2,7 +2,7 @@ import { useState } from "react";
 import { HiPencil, HiTrash } from "react-icons/hi";
 
 import { Button } from "src/components/Design/Button";
-import { ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
+import { ActionsIconButton, ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { deleteFlashcard } from "src/store/flashcardsSlice";
 import { StateFlashcard } from "src/store/types";
@@ -79,19 +79,15 @@ ${memory.back}
     if (!confirmDelete) {
       return (
         <>
-          <button title="Edit Memory" type="button" onClick={() => toggleView()}>
-            <HiPencil size="2em" />
-          </button>
-          <button
+          <ActionsIconButton title="Edit Memory" onClick={() => toggleView()} Icon={HiPencil} />
+          <ActionsIconButton
             className="mt-4"
             title="Delete Memory"
-            type="button"
             onClick={() => {
               setConfirmDelete(true);
             }}
-          >
-            <HiTrash size="2em" />
-          </button>
+            Icon={HiTrash}
+           />
         </>
       );
     }

@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { HiArrowRight, HiEye } from "react-icons/hi";
 import { useParams } from "react-router-dom";
+import { IconButton } from "src/components/Design/IconButton";
 
-import { ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
+import {
+  ActionsIconButton,
+  ActionsView,
+  BodyView,
+  WholeView,
+} from "src/components/Design/LayoutRight";
 import { useFlashcardsArrayFromTag } from "src/store/selectors";
 
 const LearnReal = ({ tagId }: { tagId: string }) => {
@@ -38,21 +44,21 @@ ${expand && currentFlashcard.back}
       <BodyView className="whitespace-pre-line">{content}</BodyView>
       <ActionsView>
         {!expand && (
-          <button title="Show answer" type="button" onClick={() => setExpand(true)}>
-            <HiEye size="2em" />
-          </button>
+          <ActionsIconButton
+            title="Show answer"
+            onClick={() => setExpand(true)}
+            Icon={HiEye}
+           />
         )}
         {expand && (
-          <button
+          <ActionsIconButton
             title="Next flashcard"
-            type="button"
             onClick={() => {
               setCurrent((x) => x + 1);
               setExpand(false);
             }}
-          >
-            <HiArrowRight size="2em" />
-          </button>
+            Icon={HiArrowRight}
+          />
         )}
       </ActionsView>
     </WholeView>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HiCheck } from "react-icons/hi";
 
-import { ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
+import { ActionsIconButton, ActionsView, BodyView, WholeView } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch } from "src/store";
 import { createTag } from "src/store/tagsSlice";
@@ -39,14 +39,12 @@ export const NewTag = () => {
         {status === `ERROR` && `Failed to save.`}
       </BodyView>
       <ActionsView>
-        <button
+        <ActionsIconButton
           title="Save Changes"
-          type="button"
           className="mt-4"
           onClick={() => save()}
-        >
-          <HiCheck size="2em" />
-        </button>
+          Icon={HiCheck}
+         />
       </ActionsView>
     </WholeView>
   );
