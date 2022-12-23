@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { HiArrowRight, HiEye } from "react-icons/hi";
+import { useCallback, useState } from "react";
+import { HiArrowRight, HiEye, HiThumbDown, HiThumbUp } from "react-icons/hi";
 import { useParams } from "react-router-dom";
 
 import {
@@ -8,6 +8,8 @@ import {
   BodyView,
   WholeView,
 } from "src/components/Design/LayoutRight";
+import { useAppDispatch } from "src/store";
+import { createReview } from "src/store/reviewsSlice";
 import { useFlashcardsArrayFromTag } from "src/store/selectors";
 
 const LearnReal = ({ tagId }: { tagId: string }) => {
@@ -15,6 +17,12 @@ const LearnReal = ({ tagId }: { tagId: string }) => {
 
   const [current, setCurrent] = useState(0);
   const [expand, setExpand] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const next = useCallback(() => {
+    setCurrent((x) => x + 1);
+    setExpand(false);
+  }, []);
 
   if (current >= flashcards.length) {
     return <div>All done!</div>;
@@ -50,14 +58,37 @@ ${expand && currentFlashcard.back}
           />
         )}
         {expand && (
-          <ActionsIconButton
-            title="Next flashcard"
-            onClick={() => {
-              setCurrent((x) => x + 1);
-              setExpand(false);
-            }}
-            Icon={HiArrowRight}
-          />
+          <>
+            <ActionsIconButton
+              title="Next flashcard"
+              onClick={next}
+              Icon={HiArrowRight}
+            />
+            <ActionsIconButton
+              title="Good"
+              onClick={() => {
+                dispatch(
+                  createReview({
+                    data: { result: `GOOD`, memoryId: currentFlashcard.id },
+                  }),
+                );
+                next();
+              }}
+              Icon={HiThumbUp}
+            />
+            <ActionsIconButton
+              title="Bad"
+              onClick={() => {
+                dispatch(
+                  createReview({
+                    data: { result: `BAD`, memoryId: currentFlashcard.id },
+                  }),
+                );
+                next();
+              }}
+              Icon={HiThumbDown}
+            />
+          </>
         )}
       </ActionsView>
     </WholeView>
