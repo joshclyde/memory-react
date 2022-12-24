@@ -14,17 +14,19 @@ export const FilterArea = ({
   onChange: React.ComponentProps<"input">["onChange"];
 }) => {
   return (
-    <div className="flex p-2 items-center border-dark-1 border-b">
-      <input
-        className="border border-black grow bg-dark-2 border-blue-1 rounded-lg text-blue-1 pl-2 text-base"
-        type="text"
-        value={value}
-        onChange={onChange}
-      />
-      <Link to={toNew} className="ml-2 text-blue-1 border border-blue-1 rounded">
-        <HiPlus />
-      </Link>
-      {children}
+    <div className="border-dark-1 border-b p-2 gap-2 flex flex-col">
+      <div className="flex items-center ">
+        <input
+          className="border border-black grow bg-dark-2 border-blue-1 rounded-lg text-blue-1 pl-2 text-base"
+          type="text"
+          value={value}
+          onChange={onChange}
+        />
+        <Link to={toNew} className="ml-2 text-blue-1 border border-blue-1 rounded">
+          <HiPlus />
+        </Link>
+      </div>
+      <div>{children}</div>
     </div>
   );
 };

@@ -6,12 +6,16 @@ import { ErrorMessage } from "../Design/ErrorMessage";
 
 import "./Markdown.css";
 
+export const isMarkdownOmitted = (content: string) => {
+  const reader = new Parser();
+  const writer = new HtmlRenderer({ safe: true });
+  const node = reader.parse(content);
+  return writer.render(node).includes(`omitted`);
+};
+
 export const useMarkdownIsOmitted = (content: string) => {
   return useMemo(() => {
-    const reader = new Parser();
-    const writer = new HtmlRenderer({ safe: true });
-    const node = reader.parse(content);
-    return writer.render(node).includes(`omitted`);
+    return isMarkdownOmitted(content);
   }, [content]);
 };
 
