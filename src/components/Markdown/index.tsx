@@ -1,9 +1,19 @@
 /* eslint react/no-danger: 0 */
 import { Parser, HtmlRenderer } from "commonmark";
 import { useMemo } from "react";
-import { HiExclamationCircle } from "react-icons/hi";
+
+import { ErrorMessage } from "../Design/ErrorMessage";
 
 import "./Markdown.css";
+
+export const useMarkdownIsOmitted = (content: string) => {
+  return useMemo(() => {
+    const reader = new Parser();
+    const writer = new HtmlRenderer({ safe: true });
+    const node = reader.parse(content);
+    return writer.render(node).includes(`omitted`);
+  }, [content]);
+};
 
 export const Markdown = ({ children }: { children: string }) => {
   const innerHtml = useMemo(() => {
@@ -17,10 +27,7 @@ export const Markdown = ({ children }: { children: string }) => {
     <>
       <div className="p-2 Markdown" dangerouslySetInnerHTML={innerHtml} />
       {innerHtml.__html.includes(`omitted`) && (
-        <div className="flex flex-row items-center">
-          <HiExclamationCircle className="mr-1" size="2em" />
-          Some of your content was omitted.
-        </div>
+        <ErrorMessage>Some of your content was omitted.</ErrorMessage>
       )}
     </>
   );
