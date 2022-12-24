@@ -10,7 +10,7 @@ import {
   WholeView
 } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
-import { useMarkdownIsOmitted } from "src/components/Markdown";
+import { isMarkdownOmitted } from "src/components/Markdown";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { updateFlashcard } from "src/store/flashcardsSlice";
 import { useTagsFormOptions } from "src/store/selectors";
@@ -33,8 +33,6 @@ export const EditMemory = ({
   const dispatch = useAppDispatch();
   const pending = useAppSelector((state) => state.flashcards.updatePending[memoryId]);
   const tagsFormOptions = useTagsFormOptions();
-
-  const isOmitted = useMarkdownIsOmitted(`${front} ${back}`);
 
   const save = async () => {
     await dispatch(
@@ -73,7 +71,7 @@ export const EditMemory = ({
           </fieldset>
           <TextArea value={front} onChange={(event) => setFront(event.target.value)} />
           <TextArea value={back} onChange={(event) => setBack(event.target.value)} />
-          {isOmitted && (
+          {isMarkdownOmitted(`${front}\n${back}`) && (
             <ErrorMessage>
               Review your memory for content that will be omitted.
             </ErrorMessage>

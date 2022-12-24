@@ -20,7 +20,7 @@ const useLocalFlashcards = ({
 
   return useMemo(() => {
     const filteredFlashcards = flashcards.filter(
-      (x) => !omittedMarkdown || isMarkdownOmitted(`${x.front} ${x.back}`),
+      (x) => !omittedMarkdown || isMarkdownOmitted(`${x.front}\n${x.back}`),
     );
 
     if (searchTerm === ``) {
