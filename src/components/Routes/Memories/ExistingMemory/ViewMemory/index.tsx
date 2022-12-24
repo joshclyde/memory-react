@@ -8,6 +8,7 @@ import {
   BodyView,
   WholeView,
 } from "src/components/Design/LayoutRight";
+import { Markdown } from "src/components/Markdown";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { deleteFlashcard } from "src/store/flashcardsSlice";
 import { StateFlashcard } from "src/store/types";
@@ -38,12 +39,7 @@ ${memory.back}
 
   const renderBody = () => {
     if (!confirmDelete) {
-      return (
-        <div className="whitespace-pre-line">
-          {content}
-          {/* <Markdown>{content}</Markdown>} */}
-        </div>
-      );
+      return <Markdown>{content}</Markdown>;
     }
 
     if (confirmDelete && pending === `PENDING`) {

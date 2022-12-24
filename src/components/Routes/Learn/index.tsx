@@ -8,6 +8,7 @@ import {
   BodyView,
   WholeView,
 } from "src/components/Design/LayoutRight";
+import { Markdown } from "src/components/Markdown";
 import { useAppDispatch } from "src/store";
 import { createReview } from "src/store/reviewsSlice";
 import { useFlashcardsArrayFromTag } from "src/store/selectors";
@@ -48,7 +49,9 @@ ${expand && currentFlashcard.back}
 
   return (
     <WholeView>
-      <BodyView className="whitespace-pre-line">{content}</BodyView>
+      <BodyView className="whitespace-pre-line">
+        <Markdown>{content}</Markdown>
+      </BodyView>
       <ActionsView>
         {!expand && (
           <ActionsIconButton
