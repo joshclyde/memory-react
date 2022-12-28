@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiPencil, HiTrash } from "react-icons/hi";
+import { HiOutlineDocument, HiOutlineTag, HiPencil, HiTrash } from "react-icons/hi";
 
 import { Button } from "src/components/Design/Button";
 import {
@@ -9,6 +9,7 @@ import {
   WholeView,
 } from "src/components/Design/LayoutRight";
 import { useAppDispatch, useAppSelector } from "src/store";
+import { useTagFlashcardsCount } from "src/store/selectors";
 import { deleteTag } from "src/store/tagsSlice";
 import { StateTag } from "src/store/types";
 
@@ -25,6 +26,8 @@ export const ViewTag = ({
   const dispatch = useAppDispatch();
   const pending = useAppSelector((state) => state.tags.deletePending[tagId]);
 
+  const flashcardsCount = useTagFlashcardsCount(tagId);
+
   const deleteFn = async () => {
     await dispatch(deleteTag(tagId));
   };
@@ -32,9 +35,15 @@ export const ViewTag = ({
   const renderBody = () => {
     if (!confirmDelete) {
       return (
-        <div className="whitespace-pre-line">
-          {tag.name}
-          {/* <Markdown>{content}</Markdown>} */}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-[4px] text-lg">
+            <HiOutlineTag />
+            {tag.name}
+          </div>
+          <div className="flex items-center gap-[4px]">
+            <HiOutlineDocument />
+            {flashcardsCount} {flashcardsCount === 1 ? `flashcard` : `flashcards`}
+          </div>
         </div>
       );
     }
