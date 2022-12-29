@@ -9,9 +9,46 @@ import {
   WholeView,
 } from "src/components/Design/LayoutRight";
 import { useAppDispatch, useAppSelector } from "src/store";
-import { useTagFlashcardsCount } from "src/store/selectors";
+import { useFlashcardsArrayFromTag, useReviewsArray } from "src/store/selectors";
 import { deleteTag } from "src/store/tagsSlice";
 import { StateTag } from "src/store/types";
+import { sortByDateString } from "src/utils/sort";
+import { suffix } from "src/utils/suffix";
+
+const useLocal = (tagId: string) => {
+  const flashcards = useFlashcardsArrayFromTag(tagId);
+  let reviews = useReviewsArray();
+  reviews = reviews.filter((x) => flashcards.some((y) => y.id === x.memoryId));
+
+  return {
+    flashcards,
+    reviews,
+    flashcardsCount: flashcards.length,
+    flashcardsCountNoReviews: flashcards.filter(
+      (x) => !reviews.some((y) => x.id === y.memoryId),
+    ).length,
+    flashcardsCountLastReviewIsGood: flashcards
+      .filter((x) => reviews.some((y) => x.id === y.memoryId))
+      .filter((x) => {
+        return (
+          reviews
+            .filter((y) => y.memoryId === x.id)
+            .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
+            .at(-1)?.result === `GOOD`
+        );
+      }).length,
+    flashcardsCountLastReviewIsBad: flashcards
+      .filter((x) => reviews.some((y) => x.id === y.memoryId))
+      .filter((x) => {
+        return (
+          reviews
+            .filter((y) => y.memoryId === x.id)
+            .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
+            .at(-1)?.result === `BAD`
+        );
+      }).length,
+  };
+};
 
 export const ViewTag = ({
   tagId,
@@ -26,7 +63,7 @@ export const ViewTag = ({
   const dispatch = useAppDispatch();
   const pending = useAppSelector((state) => state.tags.deletePending[tagId]);
 
-  const flashcardsCount = useTagFlashcardsCount(tagId);
+  const data = useLocal(tagId);
 
   const deleteFn = async () => {
     await dispatch(deleteTag(tagId));
@@ -42,7 +79,26 @@ export const ViewTag = ({
           </div>
           <div className="flex items-center gap-[4px]">
             <HiOutlineDocument />
-            {flashcardsCount} {flashcardsCount === 1 ? `flashcard` : `flashcards`}
+            {data.flashcardsCount}
+            {` `}
+            {suffix(`flashcard`, `s`, data.flashcardsCount !== 1)}
+          </div>
+          <div>
+            {data.flashcardsCountNoReviews} new{` `}
+            {suffix(`flashcard`, `s`, data.flashcardsCountNoReviews !== 1)} that have not
+            been reviewed
+          </div>
+          <div>
+            {data.flashcardsCountLastReviewIsGood}
+            {` `}
+            {suffix(`flashcard`, `s`, data.flashcardsCountLastReviewIsGood !== 1)} with a
+            last good review
+          </div>
+          <div>
+            {data.flashcardsCountLastReviewIsBad}
+            {` `}
+            {suffix(`flashcard`, `s`, data.flashcardsCountLastReviewIsBad !== 1)} with a
+            last bad review
           </div>
         </div>
       );

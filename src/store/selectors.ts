@@ -25,6 +25,13 @@ const selectFlashcardsFromTagId = (state: RootState, tagId: string) => {
   return selectFlashcardsArray(state).filter((x) => x.tags.includes(tagId));
 };
 
+const selectReviewsArray = (state: RootState) => {
+  return Object.entries(state.reviews.reviews).map(([id, values]) => ({
+    ...values,
+    id,
+  }));
+};
+
 export const useFlashcards = (): Record<string, StateFlashcard> => {
   const flashcardsIncludingDeleted = useAppSelector(
     (state) => state.flashcards.flashcardsIncludingDeleted,
@@ -77,9 +84,6 @@ export const useTagFlashcardsCount = (tagId: string) => {
   });
 };
 
-// export const useTagFlashcardsReviews = (tagId: string) => {
-//   return useAppSelector((state) => {
-//     return Object.values(selectFlashcards(state)).filter((x) => x.tags.includes(tagId))
-//       .length;
-//   });
-// };
+export const useReviewsArray = () => {
+  return useAppSelector((state) => selectReviewsArray(state));
+};
