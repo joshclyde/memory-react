@@ -1,12 +1,22 @@
+import { ReactNode } from "react";
+
 interface CheckboxProps {
   className?: string;
   id: string;
   name: string;
   checked: boolean;
   onChange: React.ComponentProps<"input">["onChange"];
+  children?: ReactNode;
 }
 
-export const Checkbox = ({ className, id, name, checked, onChange }: CheckboxProps) => {
+export const Checkbox = ({
+  className,
+  id,
+  name,
+  checked,
+  onChange,
+  children,
+}: CheckboxProps) => {
   return (
     <div className={`flex items-center ${className}`}>
       <input
@@ -20,7 +30,7 @@ export const Checkbox = ({ className, id, name, checked, onChange }: CheckboxPro
         onChange={onChange}
       />
       <label className="pl-2 cursor-pointer" htmlFor={id}>
-        {name}
+        {children || name}
       </label>
     </div>
   );

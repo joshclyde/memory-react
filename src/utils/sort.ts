@@ -6,3 +6,7 @@ export const sortByNumericField = (a: number, b: number) => {
   }
   return 0;
 };
+
+export const sortByAlphabet = (a: string, b: string) => {
+  return a.localeCompare(b);
+};

@@ -1,3 +1,5 @@
+import { sortByAlphabet } from "src/utils/sort";
+
 import { StateFlashcard, StateTag } from "./types";
 
 import { RootState, useAppSelector } from ".";
@@ -64,7 +66,9 @@ export const useTagsArray = () => {
 
 export const useTagsFormOptions = (): Array<{ id: string; name: string }> => {
   const tags = useTags();
-  return Object.entries(tags).map(([id, { name }]) => ({ id, name }));
+  return Object.entries(tags)
+    .map(([id, { name }]) => ({ id, name }))
+    .sort((a, b) => sortByAlphabet(a.name, b.name));
 };
 
 export const useTagFlashcardsCount = (tagId: string) => {
@@ -79,5 +83,3 @@ export const useTagFlashcardsCount = (tagId: string) => {
 //       .length;
 //   });
 // };
-
-
