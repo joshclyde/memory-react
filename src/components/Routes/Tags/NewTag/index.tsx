@@ -28,7 +28,7 @@ export const NewTag = () => {
       ).unwrap();
       setStatus(`SUCCESS`);
       setName(``);
-    } catch (rejectedValueOrSerializedError) {
+    } catch {
       setStatus(`ERROR`);
     }
   };

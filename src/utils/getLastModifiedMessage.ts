@@ -1,5 +1,5 @@
-const message = (num: number, time: string) => {
-  return `${num}${time}`;
+const message = (number_: number, time: string) => {
+  return `${number_}${time}`;
 };
 
 export const getLastModifiedMessage = (lastModifiedDate: Date) => {

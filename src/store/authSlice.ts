@@ -28,11 +28,7 @@ export const authSlice = createSlice({
     success: (state, action: PayloadAction<{ uid: string | null }>) => {
       state.loading = `SUCCESS`;
       state.uid = action.payload.uid;
-      if (action.payload.uid) {
-        state.isAuthenticated = true;
-      } else {
-        state.isAuthenticated = false;
-      }
+      state.isAuthenticated = Boolean(action.payload.uid);
     },
     failure: (state) => {
       state.isAuthenticated = false;

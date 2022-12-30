@@ -3,28 +3,28 @@ import { collection } from "firebase/firestore";
 import { throwOrGetCurrentUserUID } from "../core";
 
 import { FirestoreReview, FirestoreReviewUserInput } from "./types";
-import { createDocument, db, fetchCollection } from "./utils";
+import { createDocument, database, fetchCollection } from "./utils";
 
-const getReviewCollectionRef = () =>
-  collection(db, `/users/${throwOrGetCurrentUserUID()}/review`);
+const getReviewCollectionReference = () =>
+  collection(database, `/users/${throwOrGetCurrentUserUID()}/review`);
 
 export const createReview = (
   data: FirestoreReviewUserInput,
 ): Promise<readonly [string, FirestoreReview]> =>
-  createDocument(getReviewCollectionRef(), data);
+  createDocument(getReviewCollectionReference(), data);
 
 export const fetchReviews = async () => {
-  const { fromCache, fromServer } = await fetchCollection(getReviewCollectionRef());
+  const { fromCache, fromServer } = await fetchCollection(getReviewCollectionReference());
 
   const reviews: Record<string, FirestoreReview> = {};
   [fromCache, fromServer].forEach((snapshot) => {
-    snapshot?.forEach((_doc) => {
+    snapshot?.forEach((_document) => {
       // _doc.data() is never undefined for query doc snapshots
-      reviews[_doc.id] = {
-        result: _doc.data().result,
-        memoryId: _doc.data().memoryId,
-        createdDate: _doc.data().createdDate,
-        lastModified: _doc.data().lastModified,
+      reviews[_document.id] = {
+        result: _document.data().result,
+        memoryId: _document.data().memoryId,
+        createdDate: _document.data().createdDate,
+        lastModified: _document.data().lastModified,
       };
     });
   });

@@ -21,9 +21,9 @@ const initialState: ReviewsState = {
 export const fetchReviewsThunk = createAsyncThunk(`reviews/fetch`, async () => {
   const firestoreReviews = await fetchReviews();
   const data: Record<string, StateReview> = {};
-  Object.entries(firestoreReviews).forEach(([id, firestoreReview]) => {
+  for (const [id, firestoreReview] of Object.entries(firestoreReviews)) {
     data[id] = convertComputedFields(firestoreReview);
-  });
+  }
   return data;
 });
 

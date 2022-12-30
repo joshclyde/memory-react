@@ -38,7 +38,7 @@ export const NewMemory = () => {
       setStatus(`SUCCESS`);
       setFront(``);
       setBack(``);
-    } catch (rejectedValueOrSerializedError) {
+    } catch {
       setStatus(`ERROR`);
     }
   };
@@ -55,8 +55,8 @@ export const NewMemory = () => {
                   id={id}
                   name={name}
                   checked={Boolean(tags[id])}
-                  onChange={(e) =>
-                    setTags((prev) => ({ ...prev, [id]: e.target.checked }))
+                  onChange={(event) =>
+                    setTags((previous) => ({ ...previous, [id]: event.target.checked }))
                   }
                 />
               );

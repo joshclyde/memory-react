@@ -5,10 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 
 import { store } from "src/store";
 
-import { App } from "./App";
+import { App } from "./components/App";
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById(`root`) as HTMLElement).render(
+ReactDOM.createRoot(document.querySelector(`#root`) as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>

@@ -33,7 +33,7 @@ ${memory.back}
   const dispatch = useAppDispatch();
   const pending = useAppSelector((state) => state.flashcards.deletePending[memoryId]);
 
-  const deleteFn = async () => {
+  const deleteFunction = async () => {
     await dispatch(deleteFlashcard(memoryId));
   };
 
@@ -59,7 +59,7 @@ ${memory.back}
         <div>
           Are you sure you want to delete this memory?
           <div className="mt-4">
-            <Button type="button" onClick={() => deleteFn()}>
+            <Button type="button" onClick={() => deleteFunction()}>
               Confirm
             </Button>
             <Button

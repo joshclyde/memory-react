@@ -35,7 +35,7 @@ const useLocalFlashcards = ({
     return fuzzysort
       .go(searchTerm, filteredFlashcards, {
         keys: [`front`, `back`],
-        threshold: -100000,
+        threshold: -100_000,
       })
       .map((x) => {
         return x.obj;
@@ -95,8 +95,8 @@ export const ListOfMemories = () => {
                     id={id}
                     name={name}
                     checked={Boolean(tags[id])}
-                    onChange={(e) =>
-                      setTags((prev) => ({ ...prev, [id]: e.target.checked }))
+                    onChange={(event) =>
+                      setTags((previous) => ({ ...previous, [id]: event.target.checked }))
                     }
                   >
                     <div className="flex items-center gap-[4px]">

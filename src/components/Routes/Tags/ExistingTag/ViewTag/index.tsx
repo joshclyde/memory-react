@@ -65,7 +65,7 @@ export const ViewTag = ({
 
   const data = useLocal(tagId);
 
-  const deleteFn = async () => {
+  const deleteFunction = async () => {
     await dispatch(deleteTag(tagId));
   };
 
@@ -121,7 +121,7 @@ export const ViewTag = ({
         <div>
           Are you sure you want to delete the tag {tag.name}?
           <div className="mt-4">
-            <Button type="button" onClick={() => deleteFn()}>
+            <Button type="button" onClick={() => deleteFunction()}>
               Confirm
             </Button>
             <Button

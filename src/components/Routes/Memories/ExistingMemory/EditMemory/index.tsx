@@ -7,7 +7,7 @@ import {
   ActionsIconButton,
   ActionsView,
   BodyView,
-  WholeView
+  WholeView,
 } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { isMarkdownOmitted } from "src/components/Markdown";
@@ -62,8 +62,8 @@ export const EditMemory = ({
                   id={id}
                   name={name}
                   checked={Boolean(tags[id])}
-                  onChange={(e) =>
-                    setTags((prev) => ({ ...prev, [id]: e.target.checked }))
+                  onChange={(event) =>
+                    setTags((previous) => ({ ...previous, [id]: event.target.checked }))
                   }
                 />
               );

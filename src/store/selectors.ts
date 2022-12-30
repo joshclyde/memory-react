@@ -5,13 +5,11 @@ import { StateFlashcard, StateTag } from "./types";
 import { RootState, useAppSelector } from ".";
 
 const selectFlashcards = (state: RootState): Record<string, StateFlashcard> => {
-  return Object.entries(state.flashcards.flashcardsIncludingDeleted)
-    .filter(([, value]) => !value.isDeleted)
-    .reduce((obj, [key, value]) => {
-      return Object.assign(obj, {
-        [key]: value,
-      });
-    }, {});
+  return Object.fromEntries(
+    Object.entries(state.flashcards.flashcardsIncludingDeleted).filter(
+      ([, value]) => !value.isDeleted,
+    ),
+  );
 };
 
 const selectFlashcardsArray = (state: RootState) => {
@@ -36,13 +34,9 @@ export const useFlashcards = (): Record<string, StateFlashcard> => {
   const flashcardsIncludingDeleted = useAppSelector(
     (state) => state.flashcards.flashcardsIncludingDeleted,
   );
-  return Object.entries(flashcardsIncludingDeleted)
-    .filter(([, value]) => !value.isDeleted)
-    .reduce((obj, [key, value]) => {
-      return Object.assign(obj, {
-        [key]: value,
-      });
-    }, {});
+  return Object.fromEntries(
+    Object.entries(flashcardsIncludingDeleted).filter(([, value]) => !value.isDeleted),
+  );
 };
 
 export const useFlashcardsArray = () => {
@@ -57,13 +51,9 @@ export const useFlashcardsArrayFromTag = (tagId: string) => {
 
 export const useTags = (): Record<string, StateTag> => {
   const tagsIncludingDeleted = useAppSelector((state) => state.tags.tagsIncludingDeleted);
-  return Object.entries(tagsIncludingDeleted)
-    .filter(([, value]) => !value.isDeleted)
-    .reduce((obj, [key, value]) => {
-      return Object.assign(obj, {
-        [key]: value,
-      });
-    }, {});
+  return Object.fromEntries(
+    Object.entries(tagsIncludingDeleted).filter(([, value]) => !value.isDeleted),
+  );
 };
 
 export const useTagsArray = () => {

@@ -13,4 +13,14 @@ I have an application called Bear that is a note taking app. I like the design o
 - maybe changes what icons i am pulling in
 - make the memory components forms
 - probs get rid of last modified message, at least for tags
-- 
+- markdown, code blocks colored for programming languages
+
+
+
+Navigate to memories
+- want to see blank page with no selection
+- navigate to a memory
+- navigate back to list of memories, want to see blank page again?
+
+
+- want to know how well I know a tag

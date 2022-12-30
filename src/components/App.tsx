@@ -6,12 +6,12 @@ import { Memories } from "src/components/Routes/Memories";
 import { ResettingExistingMemory } from "src/components/Routes/Memories/ExistingMemory";
 import { NewMemory } from "src/components/Routes/Memories/NewMemory";
 import { Tags } from "src/components/Routes/Tags";
+import { useAppSelector } from "src/store";
 import { useStartAuthListener } from "src/store/useStartAuthListener";
 
-import { Learn } from "./components/Routes/Learn";
-import { ResettingExistingTag } from "./components/Routes/Tags/ExistingTag";
-import { NewTag } from "./components/Routes/Tags/NewTag";
-import { useAppSelector } from "./store";
+import { Learn } from "./Routes/Learn";
+import { ResettingExistingTag } from "./Routes/Tags/ExistingTag";
+import { NewTag } from "./Routes/Tags/NewTag";
 
 const Body = () => {
   useStartAuthListener();
