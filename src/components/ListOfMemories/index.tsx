@@ -5,7 +5,7 @@ import { HiOutlineChevronDown, HiOutlineChevronUp, HiOutlineTag } from "react-ic
 import { useFlashcardsArray, useTagsFormOptions } from "src/store/selectors";
 
 import { Checkbox } from "../Design/Checkbox";
-import { FilterArea, LayoutLeft, ScrollItems } from "../Design/LayoutLeft";
+import { FilterArea, ScrollItems } from "../Design/LayoutLeft";
 import { isMarkdownOmitted } from "../Markdown";
 
 import { MemoryItem } from "./MemoryItem";
@@ -55,9 +55,9 @@ export const ListOfMemories = () => {
   const flashcards = useLocalFlashcards({ searchTerm, omittedMarkdown, tags });
 
   return (
-    <LayoutLeft>
+    <>
       <FilterArea
-        toNew="/memories"
+        toNew="/memories/new"
         value={searchTerm}
         onChange={(x) => setSearchTerm(x.target.value)}
       >
@@ -112,6 +112,6 @@ export const ListOfMemories = () => {
           <MemoryItem key={props.id} {...props} />
         ))}
       </ScrollItems>
-    </LayoutLeft>
+    </>
   );
 };

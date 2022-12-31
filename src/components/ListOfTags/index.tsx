@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 
 import { useTagsArray } from "src/store/selectors";
 
-import { FilterArea, LayoutLeft, ScrollItems } from "../Design/LayoutLeft";
+import { FilterArea, ScrollItems } from "../Design/LayoutLeft";
 
 import { TagItem } from "./TagItem";
 
@@ -33,9 +33,9 @@ export const ListOfTags = () => {
   const tags = useLocalTags(searchTerm);
 
   return (
-    <LayoutLeft>
+    <>
       <FilterArea
-        toNew="/tags"
+        toNew="/tags/new"
         value={searchTerm}
         onChange={(x) => setSearchTerm(x.target.value)}
       />
@@ -44,6 +44,6 @@ export const ListOfTags = () => {
           <TagItem key={props.id} {...props} />
         ))}
       </ScrollItems>
-    </LayoutLeft>
+    </>
   );
 };

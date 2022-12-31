@@ -51,9 +51,17 @@ export const ScrollItems = ({ children }: { children: ReactNode }) => {
   return <div className="divide-y overflow-y-scroll">{children}</div>;
 };
 
-export const LayoutLeft = ({ children }: { children: ReactNode }) => {
+export const LayoutLeft = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) => {
   return (
-    <div className="basis-96 shrink-0 bg-dark-2 border-r border-dark-1 h-screen flex flex-col">
+    <div
+      className={`flex shrink-0 bg-dark-2 border-r border-dark-1 h-screen flex-col ${className}`}
+    >
       {children}
     </div>
   );

@@ -6,7 +6,6 @@ import {
   ActionsIconButton,
   ActionsView,
   BodyView,
-  WholeView,
 } from "src/components/Design/LayoutRight";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { useFlashcardsArrayFromTag, useReviewsArray } from "src/store/selectors";
@@ -159,9 +158,9 @@ export const ViewTag = ({
   };
 
   return (
-    <WholeView>
-      <BodyView>{renderBody()}</BodyView>
+    <>
+      <BodyView toBackLink="/tags">{renderBody()}</BodyView>
       <ActionsView>{renderActions()}</ActionsView>
-    </WholeView>
+    </>
   );
 };

@@ -6,8 +6,7 @@ import { ErrorMessage } from "src/components/Design/ErrorMessage";
 import {
   ActionsIconButton,
   ActionsView,
-  BodyView,
-  WholeView,
+  BodyView
 } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { isMarkdownOmitted } from "src/components/Markdown";
@@ -51,8 +50,8 @@ export const EditMemory = ({
   };
 
   return (
-    <WholeView>
-      <BodyView>
+    <>
+      <BodyView toBackLink="/memories">
         <div className="flex flex-col gap-4">
           <fieldset className="flex flex-wrap justify-between gap-2">
             {tagsFormOptions.map(({ id, name }) => {
@@ -88,6 +87,6 @@ export const EditMemory = ({
         />
         <ActionsIconButton title="Save Changes" onClick={() => save()} Icon={HiCheck} />
       </ActionsView>
-    </WholeView>
+    </>
   );
 };

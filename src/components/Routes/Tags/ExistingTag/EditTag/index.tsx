@@ -5,7 +5,6 @@ import {
   ActionsIconButton,
   ActionsView,
   BodyView,
-  WholeView,
 } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch, useAppSelector } from "src/store";
@@ -38,8 +37,8 @@ export const EditTag = ({
   };
 
   return (
-    <WholeView>
-      <BodyView>
+    <>
+      <BodyView toBackLink="/tags">
         <div className="flex flex-col">
           <TextArea value={name} onChange={(event) => setName(event.target.value)} />
         </div>
@@ -54,6 +53,6 @@ export const EditTag = ({
         />
         <ActionsIconButton title="Save Changes" onClick={() => save()} Icon={HiCheck} />
       </ActionsView>
-    </WholeView>
+    </>
   );
 };

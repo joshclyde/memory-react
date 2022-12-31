@@ -6,7 +6,6 @@ import {
   ActionsIconButton,
   ActionsView,
   BodyView,
-  WholeView,
 } from "src/components/Design/LayoutRight";
 import { Markdown } from "src/components/Markdown";
 import { useAppDispatch, useAppSelector } from "src/store";
@@ -97,9 +96,9 @@ ${memory.back}
   };
 
   return (
-    <WholeView>
-      <BodyView>{renderBody()}</BodyView>
+    <>
+      <BodyView toBackLink="/memories">{renderBody()}</BodyView>
       <ActionsView>{renderActions()}</ActionsView>
-    </WholeView>
+    </>
   );
 };

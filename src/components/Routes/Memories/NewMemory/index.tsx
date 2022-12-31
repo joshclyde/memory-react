@@ -5,8 +5,7 @@ import { Checkbox } from "src/components/Design/Checkbox";
 import {
   ActionsIconButton,
   ActionsView,
-  BodyView,
-  WholeView,
+  BodyView
 } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch } from "src/store";
@@ -44,8 +43,8 @@ export const NewMemory = () => {
   };
 
   return (
-    <WholeView>
-      <BodyView>
+    <>
+      <BodyView toBackLink="/memories">
         <div className="flex flex-col">
           <fieldset className="flex flex-wrap justify-between gap-2">
             {tagsFormOptions.map(({ id, name }) => {
@@ -79,6 +78,6 @@ export const NewMemory = () => {
       <ActionsView>
         <ActionsIconButton title="Save Changes" onClick={() => save()} Icon={HiCheck} />
       </ActionsView>
-    </WholeView>
+    </>
   );
 };

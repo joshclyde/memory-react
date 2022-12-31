@@ -1,19 +1,116 @@
 import { Route, Routes } from "react-router-dom";
 
-import { MenuBar } from "src/components/Design/MenuBar";
-import { Home } from "src/components/Routes/Home";
-import { Memories } from "src/components/Routes/Memories";
 import { ResettingExistingMemory } from "src/components/Routes/Memories/ExistingMemory";
 import { NewMemory } from "src/components/Routes/Memories/NewMemory";
-import { Tags } from "src/components/Routes/Tags";
 import { useAppSelector } from "src/store";
 import { useStartAuthListener } from "src/store/useStartAuthListener";
 
-import { Learn } from "./Routes/Learn";
+import { LayoutLeft } from "./Design/LayoutLeft";
+import { WholeView } from "./Design/LayoutRight";
+import { MenuBar } from "./Design/MenuBar";
+import { ListOfMemories } from "./ListOfMemories";
+import { ListOfTags } from "./ListOfTags";
 import { ResettingExistingTag } from "./Routes/Tags/ExistingTag";
 import { NewTag } from "./Routes/Tags/NewTag";
 
-const Body = () => {
+const One = () => {
+  return (
+    <Routes>
+      <Route index={true} element={<MenuBar />} />
+      <Route path="*" element={<MenuBar className="hidden lg:flex" />} />
+    </Routes>
+  );
+};
+
+const Two = () => {
+  return (
+    <Routes>
+      <Route path="memories">
+        <Route
+          index={true}
+          element={
+            <LayoutLeft className="w-full md:basis-48 lg:basis-96">
+              <ListOfMemories />
+            </LayoutLeft>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <LayoutLeft className="hidden md:flex md:basis-48 lg:basis-96">
+              <ListOfMemories />
+            </LayoutLeft>
+          }
+        />
+      </Route>
+      <Route path="tags">
+        <Route
+          index={true}
+          element={
+            <LayoutLeft className="w-full md:basis-48 lg:basis-96">
+              <ListOfTags />
+            </LayoutLeft>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <LayoutLeft className="hidden md:flex md:basis-48 lg:basis-96">
+              <ListOfTags />
+            </LayoutLeft>
+          }
+        />
+      </Route>
+    </Routes>
+  );
+};
+
+const Three = () => {
+  return (
+    <Routes>
+      <Route path="memories">
+        <Route index={true} element={<WholeView className="hidden md:flex" />} />
+        <Route
+          path="new"
+          element={
+            <WholeView>
+              <NewMemory />
+            </WholeView>
+          }
+        />
+        <Route
+          path=":memoryId"
+          element={
+            <WholeView>
+              <ResettingExistingMemory />
+            </WholeView>
+          }
+        />
+      </Route>
+      <Route path="tags">
+        <Route index={true} element={<WholeView className="hidden md:flex" />} />
+        <Route
+          path="new"
+          element={
+            <WholeView>
+              <NewTag />
+            </WholeView>
+          }
+        />
+        <Route
+          path=":tagId"
+          element={
+            <WholeView>
+              <ResettingExistingTag />
+            </WholeView>
+          }
+        />
+      </Route>
+    </Routes>
+  );
+};
+
+export const App = () => {
   useStartAuthListener();
   const { isAuthenticated, authLoading, flashcardsLoding, tagsLoading, reviewsLoading } =
     useAppSelector((state) => {
@@ -49,34 +146,10 @@ const Body = () => {
   }
 
   return (
-    <Routes>
-      {isAuthenticated ? (
-        <>
-          <Route path="/" element={<Home />} />
-          <Route path="memories" element={<Memories />}>
-            <Route path=":memoryId" element={<ResettingExistingMemory />} />
-            <Route index={true} element={<NewMemory />} />
-          </Route>
-          <Route path="tags" element={<Tags />}>
-            <Route path=":tagId" element={<ResettingExistingTag />} />
-            <Route index={true} element={<NewTag />} />
-          </Route>
-          <Route path="learn">
-            <Route path=":tagId" element={<Learn />} />
-          </Route>
-        </>
-      ) : (
-        <Route path="*" element={<div>Not logged in</div>} />
-      )}
-    </Routes>
-  );
-};
-
-export const App = () => {
-  return (
     <div className="flex">
-      <MenuBar />
-      <Body />
+      <One />
+      <Two />
+      <Three />
     </div>
   );
 };
