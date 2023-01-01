@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { HiPlus } from "react-icons/hi";
+import { HiOutlineChevronLeft, HiPlus } from "react-icons/hi";
 import { Link, NavLink } from "react-router-dom";
 
 export const FilterArea = ({
@@ -62,6 +62,9 @@ export const LayoutLeft = ({
     <div
       className={`flex shrink-0 bg-dark-2 border-r border-dark-1 h-screen flex-col ${className}`}
     >
+      <Link to="/" className="lg:hidden">
+        <HiOutlineChevronLeft size="2em" className="mb-4" />
+      </Link>
       {children}
     </div>
   );
