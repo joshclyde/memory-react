@@ -8,8 +8,7 @@
     "preview": "vite preview",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix",
-    "pretty": "prettier --write src/",
-    "ci": "npm run lint"
+    "pretty": "prettier --write src/"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
