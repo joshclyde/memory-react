@@ -1,11 +1,11 @@
 import fuzzysort from "fuzzysort";
-import { useMemo, useState } from "react";
-import { HiOutlineChevronDown, HiOutlineChevronUp, HiOutlineTag } from "react-icons/hi";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { HiOutlineFilter, HiOutlineTag } from "react-icons/hi";
 
 import { useFlashcardsArray, useTagsFormOptions } from "src/store/selectors";
 
 import { Checkbox } from "../Design/Checkbox";
-import { FilterArea, ScrollItems } from "../Design/LayoutLeft";
+import { FilterArea, FilterAreaIconButton, ScrollItems } from "../Design/LayoutLeft";
 import { isMarkdownOmitted } from "../Markdown";
 
 import { MemoryItem } from "./MemoryItem";
@@ -50,36 +50,34 @@ export const ListOfMemories = () => {
   const [tags, setTags] = useState<Record<string, boolean>>({});
   const tagsFormOptions = useTagsFormOptions();
 
-  const [toggleAdditional, setToggleAdditional] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
+  const filterReference = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (showFilter) {
+      filterReference.current?.scrollIntoView();
+    }
+  }, [showFilter]);
 
   const flashcards = useLocalFlashcards({ searchTerm, omittedMarkdown, tags });
 
   return (
     <>
       <FilterArea
-        toNew="/memories/new"
         value={searchTerm}
         onChange={(x) => setSearchTerm(x.target.value)}
-      >
-        <button
-          className="flex items-center gap-[4px] text-blue-1"
-          type="button"
-          onClick={() => setToggleAdditional((x) => !x)}
-        >
-          {toggleAdditional ? (
-            <>
-              Hide filters <HiOutlineChevronUp />
-            </>
-          ) : (
-            <>
-              View filters <HiOutlineChevronDown />
-            </>
-          )}
-        </button>
-      </FilterArea>
+        title="Memories"
+        icon={
+          <FilterAreaIconButton
+            onClick={() => setShowFilter((x) => !x)}
+            className="mr-4"
+            Icon={HiOutlineFilter}
+           />
+        }
+      />
       <ScrollItems>
-        {toggleAdditional && (
-          <div className="p-2">
+        {showFilter && (
+          <div ref={filterReference} className="p-2">
             <Checkbox
               id="omitted-markdown"
               name="Omitted Markdown"
@@ -111,6 +109,10 @@ export const ListOfMemories = () => {
         {flashcards.map((props) => (
           <MemoryItem key={props.id} {...props} />
         ))}
+        {/* TODO: add link to new memory */}
+        {/* <Link to={toNew} className="ml-2 text-blue-1 border border-blue-1 rounded absolute right-0">
+          <HiPlus />
+        </Link> */}
       </ScrollItems>
     </>
   );

@@ -7,20 +7,10 @@ import { useStartAuthListener } from "src/store/useStartAuthListener";
 
 import { LayoutLeft } from "./Design/LayoutLeft";
 import { WholeView } from "./Design/LayoutRight";
-import { MenuBar } from "./Design/MenuBar";
 import { ListOfMemories } from "./ListOfMemories";
 import { ListOfTags } from "./ListOfTags";
 import { ResettingExistingTag } from "./Routes/Tags/ExistingTag";
 import { NewTag } from "./Routes/Tags/NewTag";
-
-const One = () => {
-  return (
-    <Routes>
-      <Route index={true} element={<MenuBar />} />
-      <Route path="*" element={<MenuBar className="hidden lg:flex" />} />
-    </Routes>
-  );
-};
 
 const Two = () => {
   return (
@@ -147,7 +137,6 @@ export const App = () => {
 
   return (
     <div className="flex">
-      <One />
       <Two />
       <Three />
     </div>

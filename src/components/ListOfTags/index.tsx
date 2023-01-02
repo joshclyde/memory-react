@@ -35,14 +35,15 @@ export const ListOfTags = () => {
   return (
     <>
       <FilterArea
-        toNew="/tags/new"
         value={searchTerm}
         onChange={(x) => setSearchTerm(x.target.value)}
+        title="Tags"
       />
       <ScrollItems>
         {tags.map((props) => (
           <TagItem key={props.id} {...props} />
         ))}
+        {/* TODO: add link to new tag */}
       </ScrollItems>
     </>
   );
