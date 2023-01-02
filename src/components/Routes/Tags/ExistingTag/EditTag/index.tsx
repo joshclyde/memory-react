@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { HiCheck, HiX } from "react-icons/hi";
+import { HiCheck, HiOutlineChevronLeft, HiX } from "react-icons/hi";
 
-import {
-  ActionsIconButton,
-  ActionsView,
-  BodyView,
-} from "src/components/Design/LayoutRight";
+import { Button } from "src/components/Design/Button";
+import { TopBar, TopBarIconButton } from "src/components/Design/LayoutLeft";
+import { BodyView } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { updateTag } from "src/store/tagsSlice";
@@ -14,11 +12,11 @@ import { StateTag } from "src/store/types";
 export const EditTag = ({
   tagId,
   tag,
-  toggleView,
+  setView,
 }: {
   tagId: string;
   tag: StateTag;
-  toggleView: () => void;
+  setView: React.Dispatch<React.SetStateAction<"EDIT" | "DELETE" | "VIEW">>;
 }) => {
   const [name, setName] = useState(tag.name);
   const dispatch = useAppDispatch();
@@ -33,26 +31,39 @@ export const EditTag = ({
         },
       }),
     ).unwrap();
-    toggleView();
+    setView(`VIEW`);
   };
 
   return (
     <>
-      <BodyView toBackLink="/tags">
-        <div className="flex flex-col">
+      <TopBar
+        className="border-none"
+        title="Edit Tag"
+        left={
+          <TopBarIconButton onClick={() => setView(`VIEW`)} Icon={HiOutlineChevronLeft} />
+        }
+      />
+      <BodyView>
+        <div className="flex flex-col gap-4">
           <TextArea value={name} onChange={(event) => setName(event.target.value)} />
+          <div className="flex justify-end">
+            <Button
+              onClick={() => save()}
+              className="flex justify-center items-center w-24"
+            >
+              <HiCheck className="mr-2" /> Save
+            </Button>
+            <Button
+              onClick={() => setView(`VIEW`)}
+              className="flex justify-center items-center ml-2 w-24"
+            >
+              <HiX className="mr-2" /> Cancel
+            </Button>
+          </div>
         </div>
         {pending === `PENDING` && `Submitting...`}
         {pending === `ERROR` && `Failed to save.`}
       </BodyView>
-      <ActionsView>
-        <ActionsIconButton
-          title="Cancel Changes"
-          onClick={() => toggleView()}
-          Icon={HiX}
-        />
-        <ActionsIconButton title="Save Changes" onClick={() => save()} Icon={HiCheck} />
-      </ActionsView>
     </>
   );
 };

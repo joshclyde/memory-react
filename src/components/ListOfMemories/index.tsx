@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useFlashcardsArray, useTagsFormOptions } from "src/store/selectors";
 
 import { Checkbox } from "../Design/Checkbox";
-import { FilterArea, FilterAreaIconButton, ScrollItems } from "../Design/LayoutLeft";
+import { FilterArea, TopBarIconButton, ScrollItems } from "../Design/LayoutLeft";
 import { isMarkdownOmitted } from "../Markdown";
 
 import { MemoryItem } from "./MemoryItem";
@@ -69,7 +69,7 @@ export const ListOfMemories = () => {
         onChange={(x) => setSearchTerm(x.target.value)}
         title="Memories"
         icon={
-          <FilterAreaIconButton
+          <TopBarIconButton
             onClick={() => setShowFilter((x) => !x)}
             className="mr-4"
             Icon={HiOutlineFilter}

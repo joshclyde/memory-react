@@ -1,7 +1,7 @@
 import React, { ComponentProps, ReactNode, useState } from "react";
 import { IconType } from "react-icons";
 import { HiOutlineMenuAlt1, HiSearch } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { MenuBar } from "../MenuBar";
 
@@ -21,20 +21,38 @@ export const TopBarIconButton = ({
   );
 };
 
+export const TopBarIconLink = ({
+  className,
+  to,
+  Icon,
+}: {
+  className?: string;
+  to: ComponentProps<typeof Link>["to"];
+  Icon: IconType;
+}) => {
+  return (
+    <Link to={to} className={className}>
+      <Icon size="1.25em" className="text-blue-1" />
+    </Link>
+  );
+};
+
 export const TopBar = ({
   title,
   left,
   right,
   children,
+  className,
 }: {
   title?: string;
   left?: ReactNode;
   right?: ReactNode;
   children?: ReactNode;
+  className?: string;
 }) => {
   return (
-    <div className="border-dark-1 border-b p-2 gap-2 flex flex-col">
-      <div className="flex items-center justify-center relative">
+    <div className={`border-dark-1 border-b p-2 gap-2 flex flex-col ${className}`}>
+      <div className="flex items-center justify-center relative h-5">
         <div className="absolute left-0 flex">{left}</div>
         {title && <h1 className="text-blue-1 flex items-center">{title}</h1>}
         <div className="absolute right-0 flex">{right}</div>

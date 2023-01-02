@@ -1,15 +1,18 @@
-import { useState } from "react";
-import { HiOutlineDocument, HiOutlineTag, HiPencil, HiTrash } from "react-icons/hi";
-
-import { Button } from "src/components/Design/Button";
 import {
-  ActionsIconButton,
-  ActionsView,
-  BodyView,
-} from "src/components/Design/LayoutRight";
-import { useAppDispatch, useAppSelector } from "src/store";
+  HiOutlineChevronLeft,
+  HiOutlineDocument,
+  HiOutlineTag,
+  HiOutlineTrash,
+  HiPencil,
+} from "react-icons/hi";
+
+import {
+  TopBar,
+  TopBarIconButton,
+  TopBarIconLink,
+} from "src/components/Design/LayoutLeft";
+import { BodyView } from "src/components/Design/LayoutRight";
 import { useFlashcardsArrayFromTag, useReviewsArray } from "src/store/selectors";
-import { deleteTag } from "src/store/tagsSlice";
 import { StateTag } from "src/store/types";
 import { sortByDateString } from "src/utils/sort";
 import { suffix } from "src/utils/suffix";
@@ -52,25 +55,38 @@ const useLocal = (tagId: string) => {
 export const ViewTag = ({
   tagId,
   tag,
-  toggleView,
+  setView,
 }: {
   tagId: string;
   tag: StateTag;
-  toggleView: () => void;
+  setView: React.Dispatch<React.SetStateAction<"EDIT" | "DELETE" | "VIEW">>;
 }) => {
-  const [confirmDelete, setConfirmDelete] = useState(false);
-  const dispatch = useAppDispatch();
-  const pending = useAppSelector((state) => state.tags.deletePending[tagId]);
-
   const data = useLocal(tagId);
 
-  const deleteFunction = async () => {
-    await dispatch(deleteTag(tagId));
-  };
-
-  const renderBody = () => {
-    if (!confirmDelete) {
-      return (
+  return (
+    <>
+      <TopBar
+        className="border-none"
+        title="View Tag"
+        left={
+          <TopBarIconLink
+            className="md:hidden"
+            to="/memories"
+            Icon={HiOutlineChevronLeft}
+          />
+        }
+        right={
+          <>
+            <TopBarIconButton
+              className="mr-4"
+              onClick={() => setView(`EDIT`)}
+              Icon={HiPencil}
+            />
+            <TopBarIconButton onClick={() => setView(`DELETE`)} Icon={HiOutlineTrash} />
+          </>
+        }
+      />
+      <BodyView>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-[4px] text-lg">
             <HiOutlineTag />
@@ -100,67 +116,7 @@ export const ViewTag = ({
             last bad review
           </div>
         </div>
-      );
-    }
-
-    if (confirmDelete && pending === `PENDING`) {
-      return <div>Deletion in progress...</div>;
-    }
-
-    if (confirmDelete && pending === `SUCCESS`) {
-      return <div>Tag successfully deleted.</div>;
-    }
-
-    if (confirmDelete && pending === `ERROR`) {
-      return <div>Failed to delete tag.</div>;
-    }
-
-    if (confirmDelete) {
-      return (
-        <div>
-          Are you sure you want to delete the tag {tag.name}?
-          <div className="mt-4">
-            <Button type="button" onClick={() => deleteFunction()}>
-              Confirm
-            </Button>
-            <Button
-              className="ml-4"
-              type="button"
-              onClick={() => setConfirmDelete(false)}
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
-      );
-    }
-  };
-
-  const renderActions = () => {
-    if (!confirmDelete) {
-      return (
-        <>
-          <ActionsIconButton
-            title="Edit Tag"
-            onClick={() => toggleView()}
-            Icon={HiPencil}
-          />
-          <ActionsIconButton
-            title="Delete Tag"
-            onClick={() => {
-              setConfirmDelete(true);
-            }}
-            Icon={HiTrash}
-          />
-        </>
-      );
-    }
-  };
-
-  return (
-    <>
-      <BodyView toBackLink="/tags">{renderBody()}</BodyView>
-      <ActionsView>{renderActions()}</ActionsView>
+      </BodyView>
     </>
   );
 };

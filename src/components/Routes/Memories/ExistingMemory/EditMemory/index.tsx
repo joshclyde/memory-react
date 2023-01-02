@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { HiCheck, HiX } from "react-icons/hi";
+import { HiCheck, HiOutlineChevronLeft, HiX } from "react-icons/hi";
 
+import { Button } from "src/components/Design/Button";
 import { Checkbox } from "src/components/Design/Checkbox";
 import { ErrorMessage } from "src/components/Design/ErrorMessage";
-import {
-  ActionsIconButton,
-  ActionsView,
-  BodyView
-} from "src/components/Design/LayoutRight";
+import { TopBar, TopBarIconButton } from "src/components/Design/LayoutLeft";
+import { BodyView } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { isMarkdownOmitted } from "src/components/Markdown";
 import { useAppDispatch, useAppSelector } from "src/store";
@@ -18,11 +16,11 @@ import { StateFlashcard } from "src/store/types";
 export const EditMemory = ({
   memoryId,
   memory,
-  toggleView,
+  setView,
 }: {
   memoryId: string;
   memory: StateFlashcard;
-  toggleView: () => void;
+  setView: React.Dispatch<React.SetStateAction<"EDIT" | "DELETE" | "VIEW">>;
 }) => {
   const [front, setFront] = useState(memory.front);
   const [back, setBack] = useState(memory.back);
@@ -46,12 +44,19 @@ export const EditMemory = ({
         },
       }),
     ).unwrap();
-    toggleView();
+    setView(`VIEW`);
   };
 
   return (
     <>
-      <BodyView toBackLink="/memories">
+      <TopBar
+        className="border-none"
+        title="Edit Memory"
+        left={
+          <TopBarIconButton onClick={() => setView(`VIEW`)} Icon={HiOutlineChevronLeft} />
+        }
+      />
+      <BodyView>
         <div className="flex flex-col gap-4">
           <fieldset className="flex flex-wrap justify-between gap-2">
             {tagsFormOptions.map(({ id, name }) => {
@@ -75,18 +80,24 @@ export const EditMemory = ({
               Review your memory for content that will be omitted.
             </ErrorMessage>
           )}
+          <div className="flex justify-end">
+            <Button
+              onClick={() => save()}
+              className="flex justify-center items-center w-24"
+            >
+              <HiCheck className="mr-2" /> Save
+            </Button>
+            <Button
+              onClick={() => setView(`VIEW`)}
+              className="flex justify-center items-center ml-2 w-24"
+            >
+              <HiX className="mr-2" /> Cancel
+            </Button>
+          </div>
         </div>
         {pending === `PENDING` && `Submitting...`}
         {pending === `ERROR` && `Failed to save.`}
       </BodyView>
-      <ActionsView>
-        <ActionsIconButton
-          title="Cancel Changes"
-          onClick={() => toggleView()}
-          Icon={HiX}
-        />
-        <ActionsIconButton title="Save Changes" onClick={() => save()} Icon={HiCheck} />
-      </ActionsView>
     </>
   );
 };
