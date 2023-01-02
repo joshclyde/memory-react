@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 import { MenuBar } from "../MenuBar";
 
-export const FilterAreaIconButton = ({
+export const TopBarIconButton = ({
   onClick,
   className,
   Icon,
@@ -18,6 +18,29 @@ export const FilterAreaIconButton = ({
     <button type="button" onClick={onClick} className={className}>
       <Icon size="1.25em" className="text-blue-1" />
     </button>
+  );
+};
+
+export const TopBar = ({
+  title,
+  left,
+  right,
+  children,
+}: {
+  title?: string;
+  left?: ReactNode;
+  right?: ReactNode;
+  children?: ReactNode;
+}) => {
+  return (
+    <div className="border-dark-1 border-b p-2 gap-2 flex flex-col">
+      <div className="flex items-center justify-center relative">
+        <div className="absolute left-0 flex">{left}</div>
+        {title && <h1 className="text-blue-1 flex items-center">{title}</h1>}
+        <div className="absolute right-0 flex">{right}</div>
+      </div>
+      {children}
+    </div>
   );
 };
 
@@ -39,19 +62,18 @@ export const FilterArea = ({
   };
 
   return (
-    <div className="border-dark-1 border-b p-2 gap-2 flex flex-col">
-      <div className="flex items-center justify-center relative">
-        <FilterAreaIconButton
-          onClick={() => clickIcon(`MENU`)}
-          className=" absolute left-0"
-          Icon={HiOutlineMenuAlt1}
-        />
-        <h1 className="text-blue-1 flex items-center">{title}</h1>
-        <div className="absolute right-0 flex">
+    <TopBar
+      left={
+        <TopBarIconButton onClick={() => clickIcon(`MENU`)} Icon={HiOutlineMenuAlt1} />
+      }
+      right={
+        <>
           {icon}
-          <FilterAreaIconButton onClick={() => clickIcon(`SEARCH`)} Icon={HiSearch} />
-        </div>
-      </div>
+          <TopBarIconButton onClick={() => clickIcon(`SEARCH`)} Icon={HiSearch} />
+        </>
+      }
+      title={title}
+    >
       {action && (
         <div>
           {action === `MENU` && <MenuBar />}
@@ -65,7 +87,7 @@ export const FilterArea = ({
           )}
         </div>
       )}
-    </div>
+    </TopBar>
   );
 };
 
