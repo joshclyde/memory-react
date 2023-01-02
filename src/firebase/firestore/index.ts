@@ -87,11 +87,9 @@ export const fetchTags = async () => {
 };
 
 export const fetchFlashcards = async () => {
-  console.log(`3`);
   const { fromCache, fromServer } = await fetchCollection(
     getFlashcardsCollectionReference(),
   );
-  console.log(`4`);
 
   const flashcards: Record<string, FirestoreFlashcard> = {};
   [fromCache, fromServer].forEach((snapshot) => {

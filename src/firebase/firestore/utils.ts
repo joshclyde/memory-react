@@ -69,9 +69,7 @@ export const deleteDocument = async (documentReference: DocumentReference) => {
   3.  [Future Possibility] Listen for any new changes to the collection
 */
 export const fetchCollection = async (collectionReference: CollectionReference) => {
-  console.log(`5`);
   await enableCache;
-  console.log(`6`);
 
   const snapshots: {
     fromCache?: QuerySnapshot;
