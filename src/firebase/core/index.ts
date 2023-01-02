@@ -2,6 +2,7 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   signOut as authSignOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import type { User } from "firebase/auth";
 
@@ -47,7 +48,7 @@ export const startFirebaseEventListening = (
   onAuthStateSignedOut: () => void,
 ) =>
   new Promise<void>((resolve) => {
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         onAuthStateSignedIn(user);
       } else {
