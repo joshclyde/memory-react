@@ -45,24 +45,26 @@ export const FilterArea = ({
           onClick={() => clickIcon(`MENU`)}
           className=" absolute left-0"
           Icon={HiOutlineMenuAlt1}
-         />
+        />
         <h1 className="text-blue-1 flex items-center">{title}</h1>
         <div className="absolute right-0 flex">
           {icon}
           <FilterAreaIconButton onClick={() => clickIcon(`SEARCH`)} Icon={HiSearch} />
         </div>
       </div>
-      <div>
-        {action === `MENU` && <MenuBar />}
-        {action === `SEARCH` && (
-          <input
-            className="border border-black grow bg-dark-2 border-blue-1 rounded-lg text-blue-1 pl-2 text-base w-full"
-            type="text"
-            value={value}
-            onChange={onChange}
-          />
-        )}
-      </div>
+      {action && (
+        <div>
+          {action === `MENU` && <MenuBar />}
+          {action === `SEARCH` && (
+            <input
+              className="border border-black grow bg-dark-2 border-blue-1 rounded-lg text-blue-1 pl-2 text-base w-full"
+              type="text"
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };
@@ -83,8 +85,14 @@ export const Item = ({ children, to }: { children: ReactNode; to: string }) => {
   );
 };
 
-export const ScrollItems = ({ children }: { children: ReactNode }) => {
-  return <div className="divide-y overflow-y-scroll">{children}</div>;
+export const ScrollItems = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) => {
+  return <div className={`divide-y overflow-y-scroll ${className}`}>{children}</div>;
 };
 
 export const LayoutLeft = ({
@@ -96,7 +104,7 @@ export const LayoutLeft = ({
 }) => {
   return (
     <div
-      className={`flex shrink-0 bg-dark-2 border-r border-dark-1 h-screen flex-col ${className}`}
+      className={`flex shrink-0 bg-dark-2 border-r border-dark-1 h-screen flex-col relative ${className}`}
     >
       {children}
     </div>
