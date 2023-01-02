@@ -38,7 +38,7 @@ export const DeleteTag = ({
   return (
     <>
       <TopBar
-        className="border-none"
+        className="md:border-none"
         title="Delete Tag"
         left={
           <TopBarIconButton onClick={() => setView(`VIEW`)} Icon={HiOutlineChevronLeft} />

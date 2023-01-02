@@ -35,7 +35,7 @@ export const DeleteMemory = ({
   return (
     <>
       <TopBar
-        className="border-none"
+        className="md:border-none"
         title="Delete Memory"
         left={
           <TopBarIconButton onClick={() => setView(`VIEW`)} Icon={HiOutlineChevronLeft} />

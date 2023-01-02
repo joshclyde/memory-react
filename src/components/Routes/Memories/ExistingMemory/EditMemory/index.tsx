@@ -50,7 +50,7 @@ export const EditMemory = ({
   return (
     <>
       <TopBar
-        className="border-none"
+        className="md:border-none"
         title="Edit Memory"
         left={
           <TopBarIconButton onClick={() => setView(`VIEW`)} Icon={HiOutlineChevronLeft} />

@@ -66,7 +66,7 @@ export const ViewTag = ({
   return (
     <>
       <TopBar
-        className="border-none"
+        className="md:border-none"
         title="View Tag"
         left={
           <TopBarIconLink

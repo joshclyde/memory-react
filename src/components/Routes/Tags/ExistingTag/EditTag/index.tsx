@@ -37,7 +37,7 @@ export const EditTag = ({
   return (
     <>
       <TopBar
-        className="border-none"
+        className="md:border-none"
         title="Edit Tag"
         left={
           <TopBarIconButton onClick={() => setView(`VIEW`)} Icon={HiOutlineChevronLeft} />

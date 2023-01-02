@@ -33,7 +33,7 @@ export const NewTag = () => {
   return (
     <>
       <TopBar
-        className="border-none"
+        className="md:border-none"
         title="New Tag"
         left={
           <TopBarIconLink className="md:hidden" to="/tags" Icon={HiOutlineChevronLeft} />

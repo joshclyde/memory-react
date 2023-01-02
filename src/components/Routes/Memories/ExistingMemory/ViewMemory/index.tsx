@@ -26,7 +26,7 @@ ${memory.back}
   return (
     <>
       <TopBar
-        className="border-none"
+        className="md:border-none"
         title="View Memory"
         left={
           <TopBarIconLink

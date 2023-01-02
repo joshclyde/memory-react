@@ -43,7 +43,7 @@ export const NewMemory = () => {
   return (
     <>
       <TopBar
-        className="border-none"
+        className="md:border-none"
         title="New Memory"
         left={
           <TopBarIconLink
