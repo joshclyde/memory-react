@@ -1,6 +1,7 @@
 export const firebaseConfig = {
   apiKey: `AIzaSyDW2iLG7VVcRii6V8dT20NtlyFSAqzu5zA`,
   authDomain: `memory-josh-clyde.firebaseapp.com`,
+  databaseURL: `https://memory-josh-clyde-default-rtdb.firebaseio.com`,
   projectId: `memory-josh-clyde`,
   storageBucket: `memory-josh-clyde.appspot.com`,
   messagingSenderId: `968343289882`,
