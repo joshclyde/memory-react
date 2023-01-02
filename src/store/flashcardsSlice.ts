@@ -28,7 +28,9 @@ const initialState: FlashcardsState = {
 };
 
 export const fetchFlashcardsThunk = createAsyncThunk(`flashcards/fetch`, async () => {
+  console.log(`1`)
   const firestoreFlashcards = await fetchFlashcards();
+  console.log(`2`)
   const data: Record<string, StateFlashcard> = {};
   for (const [id, firestoreFlashcard] of Object.entries(firestoreFlashcards)) {
     data[id] = convertComputedFields(firestoreFlashcard);
