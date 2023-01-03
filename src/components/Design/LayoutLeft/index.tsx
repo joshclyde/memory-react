@@ -115,7 +115,9 @@ export const Item = ({ children, to }: { children: ReactNode; to: string }) => {
       <NavLink to={to}>
         {({ isActive }) => (
           <div
-            className={`p-4 flex ${isActive ? `border-l-4 border-purple-1 bg-dark-1` : `ml-[4px]`}`}
+            className={`p-4 flex ${
+              isActive ? `border-l-4 border-purple-1 bg-dark-1` : `ml-[4px]`
+            }`}
           >
             {children}
           </div>
