@@ -1,9 +1,9 @@
 import { startFirebaseEventListening } from "src/firebase/core";
 
 import { pending, success } from "./authSlice";
-import { fetchFlashcardsThunk } from "./flashcardsSlice";
-import { fetchReviewsThunk } from "./reviewsSlice";
-import { fetchTagsThunk } from "./tagsSlice";
+import { clearFlashcardData, fetchFlashcardsThunk } from "./flashcardsSlice";
+import { clearReviewData, fetchReviewsThunk } from "./reviewsSlice";
+import { clearTagData, fetchTagsThunk } from "./tagsSlice";
 
 import { useAppDispatch } from "./index";
 
@@ -22,6 +22,9 @@ export const useStartAuthListener = () => {
       },
       () => {
         dispatch(success({ uid: null }));
+        dispatch(clearFlashcardData());
+        dispatch(clearTagData());
+        dispatch(clearReviewData());
       },
     );
   }

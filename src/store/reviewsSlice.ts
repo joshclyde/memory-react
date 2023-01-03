@@ -38,7 +38,12 @@ export const createReview = createAsyncThunk(
 export const reviewsSlice = createSlice({
   name: `reviews`,
   initialState,
-  reducers: {},
+  reducers: {
+    clearReviewData: (state) => {
+      state.reviews = {};
+      state.loading = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchReviewsThunk.pending, (state) => {
       state.loading = `PENDING`;
@@ -55,6 +60,8 @@ export const reviewsSlice = createSlice({
     });
   },
 });
+
+export const { clearReviewData } = reviewsSlice.actions;
 
 export const selectReviews = (state: RootState) => state.reviews.reviews;
 export const selectReviewsLoading = (state: RootState) => state.reviews.loading;

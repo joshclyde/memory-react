@@ -60,7 +60,14 @@ export const deleteTag = createAsyncThunk(`tags/delete`, async (id: string) => {
 export const tagsSlice = createSlice({
   name: `tags`,
   initialState,
-  reducers: {},
+  reducers: {
+    clearTagData: (state) => {
+      state.tagsIncludingDeleted = {};
+      state.loading = null;
+      state.updatePending = {};
+      state.deletePending = {};
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchTagsThunk.pending, (state) => {
       state.loading = `PENDING`;
@@ -104,7 +111,7 @@ export const tagsSlice = createSlice({
   },
 });
 
-// export const { pending, success, failure } = flashcardsSlice.actions;
+export const { clearTagData } = tagsSlice.actions;
 
 export const selectTagsIncludingDeleted = (state: RootState) =>
   state.tags.tagsIncludingDeleted;
