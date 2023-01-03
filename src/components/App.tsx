@@ -9,8 +9,10 @@ import { LayoutLeft } from "./Design/LayoutLeft";
 import { WholeView } from "./Design/LayoutRight";
 import { ListOfMemories } from "./ListOfMemories";
 import { ListOfTags } from "./ListOfTags";
+import { NoMemory } from "./Routes/Memories/NoMemory";
 import { ResettingExistingTag } from "./Routes/Tags/ExistingTag";
 import { NewTag } from "./Routes/Tags/NewTag";
+import { NoTag } from "./Routes/Tags/NoTag";
 
 const Two = () => {
   return (
@@ -59,7 +61,14 @@ const Three = () => {
   return (
     <Routes>
       <Route path="memories">
-        <Route index={true} element={<WholeView className="hidden md:flex" />} />
+        <Route
+          index={true}
+          element={
+            <WholeView className="hidden md:flex items-center justify-center">
+              <NoMemory />
+            </WholeView>
+          }
+        />
         <Route
           path="new"
           element={
@@ -78,7 +87,14 @@ const Three = () => {
         />
       </Route>
       <Route path="tags">
-        <Route index={true} element={<WholeView className="hidden md:flex" />} />
+        <Route
+          index={true}
+          element={
+            <WholeView className="hidden md:flex items-center justify-center">
+              <NoTag />
+            </WholeView>
+          }
+        />
         <Route
           path="new"
           element={
