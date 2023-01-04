@@ -2,19 +2,20 @@ import fuzzysort from "fuzzysort";
 import { useMemo, useState } from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 
-import { useTagsArray } from "src/store/selectors";
+import { useTagsArrayWithFlashcards } from "src/store/selectors";
+import { sortByNumericField } from "src/utils/sort";
 
 import { FilterArea, ScrollItems, TopBarIconLink } from "../Design/LayoutLeft";
 
 import { TagItem } from "./TagItem";
 
 const useLocalTags = (searchTerm: string) => {
-  const tags = useTagsArray();
+  const tags = useTagsArrayWithFlashcards();
 
   return useMemo(() => {
     if (searchTerm === ``) {
       return tags.sort((a, b) =>
-        new Date(a.lastModified).getTime() > new Date(b.lastModified).getTime() ? -1 : 1,
+        sortByNumericField(a.flashcardsArray.length, b.flashcardsArray.length),
       );
     }
 

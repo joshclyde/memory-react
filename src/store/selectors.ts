@@ -65,6 +65,16 @@ export const useTagsArray = () => {
   return Object.entries(tags).map(([id, values]) => ({ ...values, id }));
 };
 
+export const useTagsArrayWithFlashcards = () => {
+  return useAppSelector((state) => {
+    return Object.entries(state.tags.tagsIncludingDeleted).map(([id, values]) => ({
+      ...values,
+      id,
+      flashcardsArray: selectFlashcardsFromTagId(state, id),
+    }));
+  });
+};
+
 export const useTagsFormOptions = (): Array<{ id: string; name: string }> => {
   const tags = useTags();
   return Object.entries(tags)
