@@ -53,7 +53,7 @@ ${expand && memory.back}
         left={<TopBarIconLink to={`/tags/${tagId}`} Icon={HiOutlineChevronLeft} />}
       />
       <BodyView className="whitespace-pre-line flex flex-col justify-center items-center">
-        <Markdown className="w-[1024px]">{content}</Markdown>
+        <Markdown className="w-full max-w-[1024px]">{content}</Markdown>
         <div className="mt-8">
           {!expand && (
             <TopBarIconButton
