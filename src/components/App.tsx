@@ -9,6 +9,7 @@ import { LayoutLeft } from "./Design/LayoutLeft";
 import { WholeView } from "./Design/LayoutRight";
 import { ListOfMemories } from "./ListOfMemories";
 import { ListOfTags } from "./ListOfTags";
+import { Learn } from "./Routes/Learn";
 import { NoMemory } from "./Routes/Memories/NoMemory";
 import { ResettingExistingTag } from "./Routes/Tags/ExistingTag";
 import { NewTag } from "./Routes/Tags/NewTag";
@@ -108,6 +109,16 @@ const Three = () => {
           element={
             <WholeView>
               <ResettingExistingTag />
+            </WholeView>
+          }
+        />
+      </Route>
+      <Route path="learn">
+        <Route
+          path=":tagId"
+          element={
+            <WholeView>
+              <Learn />
             </WholeView>
           }
         />

@@ -56,6 +56,10 @@ export const useTags = (): Record<string, StateTag> => {
   );
 };
 
+export const useTag = (tagId: string) => {
+  return useAppSelector((state) => state.tags.tagsIncludingDeleted[tagId]);
+};
+
 export const useTagsArray = () => {
   const tags = useTags();
   return Object.entries(tags).map(([id, values]) => ({ ...values, id }));

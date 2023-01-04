@@ -19,7 +19,13 @@ export const useMarkdownIsOmitted = (content: string) => {
   }, [content]);
 };
 
-export const Markdown = ({ children }: { children: string }) => {
+export const Markdown = ({
+  children,
+  className,
+}: {
+  children: string;
+  className?: string;
+}) => {
   const innerHtml = useMemo(() => {
     const reader = new Parser();
     const writer = new HtmlRenderer({ safe: true });
@@ -29,7 +35,7 @@ export const Markdown = ({ children }: { children: string }) => {
 
   return (
     <>
-      <div className="p-2 Markdown" dangerouslySetInnerHTML={innerHtml} />
+      <div className={`Markdown ${className}`} dangerouslySetInnerHTML={innerHtml} />
       {innerHtml.__html.includes(`omitted`) && (
         <ErrorMessage>Some of your content was omitted.</ErrorMessage>
       )}

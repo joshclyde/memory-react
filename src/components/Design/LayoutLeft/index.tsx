@@ -8,15 +8,22 @@ import { MenuBar } from "../MenuBar";
 export const TopBarIconButton = ({
   onClick,
   className,
+  title,
   Icon,
 }: {
   onClick: ComponentProps<"button">["onClick"];
   className?: string;
+  title?: string;
   Icon: IconType;
 }) => {
   return (
-    <button type="button" onClick={onClick} className={className}>
-      <Icon size="1.25em" className="text-blue-1" />
+    <button
+      type="button"
+      onClick={onClick}
+      className={`text-blue-1 ${className}`}
+      title={title}
+    >
+      <Icon size="1.25em" />
     </button>
   );
 };
