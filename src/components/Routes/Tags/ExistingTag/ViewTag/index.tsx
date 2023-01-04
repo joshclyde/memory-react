@@ -12,6 +12,7 @@ import {
   TopBarIconLink,
 } from "src/components/Design/LayoutLeft";
 import { BodyView } from "src/components/Design/LayoutRight";
+import { Link } from "src/components/Design/Link";
 import { useFlashcardsArrayFromTag, useReviewsArray } from "src/store/selectors";
 import { StateTag } from "src/store/types";
 import { sortByDateString } from "src/utils/sort";
@@ -115,6 +116,9 @@ export const ViewTag = ({
             {suffix(`flashcard`, `s`, data.flashcardsCountLastReviewIsBad !== 1)} with a
             last bad review
           </div>
+          <Link to={`/learn/${tagId}`} className="w-fit">
+            Learn
+          </Link>
         </div>
       </BodyView>
     </>
