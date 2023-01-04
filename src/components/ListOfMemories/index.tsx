@@ -1,12 +1,16 @@
 import fuzzysort from "fuzzysort";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { HiOutlineDocumentAdd, HiOutlineFilter, HiOutlineTag } from "react-icons/hi";
-import { Link } from "react-router-dom";
 
 import { useFlashcardsArray, useTagsFormOptions } from "src/store/selectors";
 
 import { Checkbox } from "../Design/Checkbox";
-import { FilterArea, TopBarIconButton, ScrollItems } from "../Design/LayoutLeft";
+import {
+  FilterArea,
+  ScrollItems,
+  TopBarIconButton,
+  TopBarIconLink,
+} from "../Design/LayoutLeft";
 import { isMarkdownOmitted } from "../Markdown";
 
 import { MemoryItem } from "./MemoryItem";
@@ -69,11 +73,18 @@ export const ListOfMemories = () => {
         onChange={(x) => setSearchTerm(x.target.value)}
         title="Memories"
         icon={
-          <TopBarIconButton
-            onClick={() => setShowFilter((x) => !x)}
-            className="mr-4"
-            Icon={HiOutlineFilter}
-          />
+          <>
+            <TopBarIconLink
+              to="/memories/new"
+              className="mr-4"
+              Icon={HiOutlineDocumentAdd}
+            />
+            <TopBarIconButton
+              onClick={() => setShowFilter((x) => !x)}
+              className="mr-4"
+              Icon={HiOutlineFilter}
+            />
+          </>
         }
       />
       <ScrollItems>
@@ -115,12 +126,6 @@ export const ListOfMemories = () => {
         ))}
         <div className="h-24 border-none" />
       </ScrollItems>
-      <Link
-        to="/memories/new"
-        className="absolute bottom-2 right-2 bg-dark-1 p-4 rounded-full"
-      >
-        <HiOutlineDocumentAdd size="2em" />
-      </Link>
     </>
   );
 };

@@ -1,11 +1,11 @@
 import fuzzysort from "fuzzysort";
 import { useMemo, useState } from "react";
-import { HiOutlinePlusSm } from "react-icons/hi";
+import { HiOutlinePlusCircle, HiOutlinePlusSm } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 import { useTagsArray } from "src/store/selectors";
 
-import { FilterArea, ScrollItems } from "../Design/LayoutLeft";
+import { FilterArea, ScrollItems, TopBarIconLink } from "../Design/LayoutLeft";
 
 import { TagItem } from "./TagItem";
 
@@ -40,6 +40,9 @@ export const ListOfTags = () => {
         value={searchTerm}
         onChange={(x) => setSearchTerm(x.target.value)}
         title="Tags"
+        icon={
+          <TopBarIconLink to="/tags/new" className="mr-4" Icon={HiOutlinePlusCircle} />
+        }
       />
       <ScrollItems>
         {tags.map((props) => (
