@@ -3,6 +3,7 @@ import {
   HiArrowRight,
   HiEye,
   HiOutlineChevronLeft,
+  HiOutlineTag,
   HiThumbDown,
   HiThumbUp,
 } from "react-icons/hi";
@@ -49,7 +50,11 @@ ${expand && memory.back}
     <>
       <TopBar
         className="md:border-none"
-        title={`Learning - ${tag.name}`}
+        title={
+          <>
+            <HiOutlineTag className="mr-1" /> {tag.name}
+          </>
+        }
         left={<TopBarIconLink to={`/tags/${tagId}`} Icon={HiOutlineChevronLeft} />}
       />
       <BodyView className="whitespace-pre-line flex flex-col justify-center items-center">

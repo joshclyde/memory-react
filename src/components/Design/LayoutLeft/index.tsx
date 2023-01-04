@@ -51,7 +51,7 @@ export const TopBar = ({
   children,
   className,
 }: {
-  title?: string;
+  title?: ReactNode;
   left?: ReactNode;
   right?: ReactNode;
   children?: ReactNode;
