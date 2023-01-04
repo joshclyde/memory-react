@@ -1,7 +1,6 @@
 import fuzzysort from "fuzzysort";
 import { useMemo, useState } from "react";
-import { HiOutlinePlusCircle, HiOutlinePlusSm } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { HiOutlinePlusCircle } from "react-icons/hi";
 
 import { useTagsArray } from "src/store/selectors";
 
@@ -50,12 +49,6 @@ export const ListOfTags = () => {
         ))}
         <div className="h-24 border-none" />
       </ScrollItems>
-      <Link
-        to="/tags/new"
-        className="absolute bottom-2 right-2 bg-dark-1 p-4 rounded-full"
-      >
-        <HiOutlinePlusSm size="2em" />
-      </Link>
     </>
   );
 };
