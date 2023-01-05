@@ -107,5 +107,6 @@
 }
 
 .Markdown hr {
+  color: var(--purple-1);
   margin: 16px 0;
 }
