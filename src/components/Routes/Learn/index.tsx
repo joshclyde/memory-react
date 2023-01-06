@@ -4,6 +4,8 @@ import {
   HiEye,
   HiOutlineChevronLeft,
   HiOutlineTag,
+  HiOutlineTrash,
+  HiPencil,
   HiThumbDown,
   HiThumbUp,
 } from "react-icons/hi";
@@ -20,34 +22,56 @@ import { useAppDispatch } from "src/store";
 import { createReview } from "src/store/reviewsSlice";
 import { useFlashcardsArrayFromTag, useTag } from "src/store/selectors";
 
+import { DeleteMemoryForm } from "../Memories/ExistingMemory/DeleteMemory/DeleteMemoryForm";
+import { EditMemoryForm } from "../Memories/ExistingMemory/EditMemory/EditMemoryForm";
+
 const LearnReal = ({ tagId }: { tagId: string }) => {
   const tag = useTag(tagId);
   const flashcards = useFlashcardsArrayFromTag(tagId);
 
-  const [index, setIndex] = useState(Math.floor(Math.random() * flashcards.length));
-  const memory = flashcards[index];
+  const [memory, setMemory] = useState(
+    flashcards[Math.floor(Math.random() * flashcards.length)],
+  );
+
+  const [view, setView] = useState<"VIEW" | "EDIT" | "DELETE">(`VIEW`);
 
   const [expand, setExpand] = useState(false);
   const dispatch = useAppDispatch();
 
   const next = useCallback(() => {
-    setIndex(Math.floor(Math.random() * flashcards.length));
+    if (flashcards.length > 1) {
+      const flashcardsWithoutPrevious = flashcards.filter((x) => x.id != memory.id);
+      setMemory(
+        flashcardsWithoutPrevious[
+          Math.floor(Math.random() * flashcardsWithoutPrevious.length)
+        ],
+      );
+    }
     setExpand(false);
-  }, [flashcards]);
+  }, [flashcards, memory.id]);
 
-  let content = `${memory.front}`;
+  const renderTopBar = () => {
+    if (view === `EDIT` || view === `DELETE`) {
+      return (
+        <TopBar
+          className="md:border-none"
+          title={
+            <>
+              <HiOutlineTag className="mr-1" /> {tag.name}
+            </>
+          }
+          left={
+            <TopBarIconButton
+              onClick={() => setView(`VIEW`)}
+              Icon={HiOutlineChevronLeft}
+              title="Back to learning"
+            />
+          }
+        />
+      );
+    }
 
-  if (expand) {
-    content = `${content}
-
----
-
-${expand && memory.back}
-`;
-  }
-
-  return (
-    <>
+    return (
       <TopBar
         className="md:border-none"
         title={
@@ -56,8 +80,49 @@ ${expand && memory.back}
           </>
         }
         left={<TopBarIconLink to={`/tags/${tagId}`} Icon={HiOutlineChevronLeft} />}
+        right={
+          <>
+            <TopBarIconButton
+              className="mr-4"
+              onClick={() => setView(`EDIT`)}
+              Icon={HiPencil}
+            />
+            <TopBarIconButton onClick={() => setView(`DELETE`)} Icon={HiOutlineTrash} />
+          </>
+        }
       />
-      <BodyView className="whitespace-pre-line flex flex-col justify-center items-center">
+    );
+  };
+
+  const renderBody = () => {
+    if (view === `EDIT`) {
+      return (
+        <EditMemoryForm
+          memoryId={memory.id}
+          memory={memory}
+          onCancel={() => setView(`VIEW`)}
+          onSuccessfulEdit={() => {
+            next();
+            setView(`VIEW`);
+          }}
+        />
+      );
+    }
+    if (view === `DELETE`) {
+      return (
+        <DeleteMemoryForm
+          memoryId={memory.id}
+          onCancel={() => setView(`VIEW`)}
+          onSuccessfulDelete={() => {
+            next();
+            setView(`VIEW`);
+          }}
+        />
+      );
+    }
+
+    return (
+      <>
         <Markdown className="w-full max-w-[1024px]">{content}</Markdown>
         <div className="mt-8">
           {!expand && (
@@ -84,7 +149,7 @@ ${expand && memory.back}
               />
               <TopBarIconButton
                 className="mr-12"
-                title="Next flashcard"
+                title="Next memory"
                 onClick={next}
                 Icon={HiArrowRight}
               />
@@ -103,6 +168,26 @@ ${expand && memory.back}
             </>
           )}
         </div>
+      </>
+    );
+  };
+
+  let content = `${memory.front}`;
+
+  if (expand) {
+    content = `${content}
+
+---
+
+${expand && memory.back}
+`;
+  }
+
+  return (
+    <>
+      {renderTopBar()}
+      <BodyView className="whitespace-pre-line flex flex-col justify-center items-center">
+        {renderBody()}
       </BodyView>
     </>
   );
