@@ -70,11 +70,7 @@ export const ViewTag = ({
         className="md:border-none"
         title="View Tag"
         left={
-          <TopBarIconLink
-            className="md:hidden"
-            to="/memories"
-            Icon={HiOutlineChevronLeft}
-          />
+          <TopBarIconLink className="md:hidden" to="/tags" Icon={HiOutlineChevronLeft} />
         }
         right={
           <>
