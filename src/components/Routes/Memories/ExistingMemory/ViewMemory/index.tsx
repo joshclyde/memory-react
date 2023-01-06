@@ -7,7 +7,7 @@ import {
 } from "src/components/Design/LayoutLeft";
 import { BodyView } from "src/components/Design/LayoutRight";
 import { Markdown } from "src/components/Markdown";
-import { MemoryTags } from "src/components/MemoryTags";
+import { MemoryTagsLinks } from "src/components/MemoryTags";
 import { StateFlashcard } from "src/store/types";
 
 export const ViewMemory = ({
@@ -48,7 +48,7 @@ ${memory.back}
         }
       />
       <BodyView className="flex flex-col">
-        <MemoryTags className="mb-4 self-end" tags={memory.tags} />
+        <MemoryTagsLinks className="mb-4 self-end" tags={memory.tags} />
         <Markdown>{content}</Markdown>
       </BodyView>
     </>
