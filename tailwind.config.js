@@ -5,13 +5,17 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}", "./index.html"],
   theme: {
     colors: {
-      "dark-1": "#232530",
+      "dark-1": "#282a36",
       "dark-2": "#353846",
       "light-1": "#f8f8f2",
-      "light-2": "#BFBFC3",
-      "green-1": "#57E889",
-      "purple-1": "#CDAEF9",
-      "blue-1": "#86E2F5",
+      "light-2": "#bfbfc3",
+      "green-1": "#50fa7b",
+      "purple-1": "#bd93f9",
+      "blue-1": "#8be9fd",
+      "orange-1": "#ffb86c",
+      "pink-1": "#ff79c6",
+      "red-1": "#ff5555",
+      "yellow-1": "#f1fa8c",
     },
     extend: {
       fontFamily: {
