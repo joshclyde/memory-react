@@ -1,9 +1,11 @@
 /* eslint react/no-danger: 0 */
 import { Parser, HtmlRenderer } from "commonmark";
-import { useMemo } from "react";
+import hljs from "highlight.js";
+import { useEffect, useMemo } from "react";
 
 import { ErrorMessage } from "../Design/ErrorMessage";
 
+import "./dracula.css";
 import "./Markdown.css";
 
 export const isMarkdownOmitted = (content: string) => {
@@ -33,10 +35,14 @@ export const Markdown = ({
     return { __html: writer.render(node) };
   }, [children]);
 
+  useEffect(() => {
+    hljs.highlightAll();
+  }, [innerHtml]);
+
   return (
     <>
       <div
-        className={`Markdown bg-dark-1 rounded-lg p-4 ${className}`}
+        className={`Markdown bg-dark-1 rounded-lg border-purple-1 border p-4 ${className}`}
         dangerouslySetInnerHTML={innerHtml}
       />
       {innerHtml.__html.includes(`omitted`) && (
