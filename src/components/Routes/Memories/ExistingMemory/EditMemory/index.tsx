@@ -28,6 +28,7 @@ export const EditMemory = ({
         <EditMemoryForm
           memoryId={memoryId}
           memory={memory}
+          onSuccessfulEdit={() => setView(`VIEW`)}
           onCancel={() => setView(`VIEW`)}
         />
       </BodyView>
