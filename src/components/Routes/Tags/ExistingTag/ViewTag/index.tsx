@@ -86,11 +86,11 @@ export const ViewTag = ({
       <BodyView>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-[4px] text-lg">
-            <HiOutlineTag />
+            <HiOutlineTag className="text-purple-1" />
             {tag.name}
           </div>
           <div className="flex items-center gap-[4px]">
-            <HiOutlineDocument />
+            <HiOutlineDocument className="text-purple-1" />
             {data.flashcardsCount}
             {` `}
             {suffix(`flashcard`, `s`, data.flashcardsCount !== 1)}
