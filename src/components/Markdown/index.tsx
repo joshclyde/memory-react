@@ -35,7 +35,10 @@ export const Markdown = ({
 
   return (
     <>
-      <div className={`Markdown ${className}`} dangerouslySetInnerHTML={innerHtml} />
+      <div
+        className={`Markdown bg-dark-1 rounded-lg p-4 ${className}`}
+        dangerouslySetInnerHTML={innerHtml}
+      />
       {innerHtml.__html.includes(`omitted`) && (
         <ErrorMessage>Some of your content was omitted.</ErrorMessage>
       )}

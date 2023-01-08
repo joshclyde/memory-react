@@ -51,15 +51,16 @@
 
 .Markdown code {
   border: 1px solid var(--purple-1);
-  background-color: var(--dark-1);
+  background-color: var(--dark-2);
   font-size: 12px;
   padding: 2px;
 }
 
 .Markdown pre {
   border: 1px solid var(--purple-1);
-  background-color: var(--dark-1);
-  padding: 2px;
+  border-radius: 4px;
+  background-color: var(--dark-2);
+  padding: 4px 8px;
 }
 
 .Markdown pre code {
