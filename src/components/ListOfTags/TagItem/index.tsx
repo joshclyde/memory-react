@@ -1,7 +1,7 @@
 import { HiOutlineDocument } from "react-icons/hi";
 
 import { Item } from "src/components/Design/LayoutLeft";
-import { useTagFlashcardsCount } from "src/store/selectors";
+import { useTagFlashcardsCount } from "src/store/useSelectors";
 import { getLastModifiedMessage } from "src/utils/getLastModifiedMessage";
 
 export const TagItem = ({

@@ -8,7 +8,7 @@ import { BodyView } from "src/components/Design/LayoutRight";
 import { TextArea } from "src/components/Design/TextArea";
 import { useAppDispatch } from "src/store";
 import { createFlashcard } from "src/store/flashcardsSlice";
-import { useTagsFormOptions } from "src/store/selectors";
+import { useTagsFormOptions } from "src/store/useSelectors";
 
 export const NewMemory = () => {
   const [front, setFront] = useState(``);

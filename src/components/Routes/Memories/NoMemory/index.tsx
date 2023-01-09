@@ -1,4 +1,4 @@
-import { useFlashcardsArray } from "src/store/selectors";
+import { useFlashcardsArray } from "src/store/useSelectors";
 
 export const NoMemory = () => {
   const flashcards = useFlashcardsArray();

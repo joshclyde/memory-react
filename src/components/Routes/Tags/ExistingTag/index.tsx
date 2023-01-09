@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { useTags } from "src/store/selectors";
+import { useTags } from "src/store/useSelectors";
 
 import { DeleteTag } from "./DeleteTag";
 import { EditTag } from "./EditTag";

@@ -2,7 +2,7 @@ import fuzzysort from "fuzzysort";
 import { useMemo, useState } from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 
-import { useTagsArrayWithFlashcards } from "src/store/selectors";
+import { useTagsArrayWithFlashcards } from "src/store/useSelectors";
 import { sortByNumericField } from "src/utils/sort";
 
 import { FilterArea, ScrollItems, TopBarIconLink } from "../Design/LayoutLeft";

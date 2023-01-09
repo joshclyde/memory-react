@@ -13,8 +13,8 @@ import {
 } from "src/components/Design/LayoutLeft";
 import { BodyView } from "src/components/Design/LayoutRight";
 import { Link } from "src/components/Design/Link";
-import { useFlashcardsArrayFromTag, useReviewsArray } from "src/store/selectors";
 import { StateTag } from "src/store/types";
+import { useFlashcardsArrayFromTag, useReviewsArray } from "src/store/useSelectors";
 import { sortByDateString } from "src/utils/sort";
 import { suffix } from "src/utils/suffix";
 

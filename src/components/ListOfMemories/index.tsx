@@ -2,7 +2,7 @@ import fuzzysort from "fuzzysort";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { HiOutlineDocumentAdd, HiOutlineFilter, HiOutlineTag } from "react-icons/hi";
 
-import { useFlashcardsArray, useTagsFormOptions } from "src/store/selectors";
+import { useFlashcardsArray, useTagsFormOptions } from "src/store/useSelectors";
 
 import { Checkbox } from "../Design/Checkbox";
 import {

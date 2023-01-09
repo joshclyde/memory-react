@@ -1,4 +1,4 @@
-import { useTagsArray } from "src/store/selectors";
+import { useTagsArray } from "src/store/useSelectors";
 
 export const NoTag = () => {
   const tags = useTagsArray();

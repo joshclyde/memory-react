@@ -2,7 +2,9 @@ import { useCallback, useState } from "react";
 import {
   HiArrowRight,
   HiEye,
+  HiOutlineCheck,
   HiOutlineChevronLeft,
+  HiOutlineDocument,
   HiOutlineTag,
   HiOutlineTrash,
   HiPencil,
@@ -17,38 +19,63 @@ import {
   TopBarIconLink,
 } from "src/components/Design/LayoutLeft";
 import { BodyView } from "src/components/Design/LayoutRight";
-import { Markdown } from "src/components/Markdown";
+import { MemoryMarkdown } from "src/components/Markdown/MemoryMarkdown";
 import { useAppDispatch } from "src/store";
 import { createReview } from "src/store/reviewsSlice";
-import { useFlashcardsArrayFromTag, useTag } from "src/store/selectors";
+import {
+  useFlashcardsArrayFromTag,
+  useLearnMemoryIds,
+  useTag,
+} from "src/store/useSelectors";
 
 import { DeleteMemoryForm } from "../Memories/ExistingMemory/DeleteMemory/DeleteMemoryForm";
 import { EditMemoryForm } from "../Memories/ExistingMemory/EditMemory/EditMemoryForm";
 
 const LearnReal = ({ tagId }: { tagId: string }) => {
   const tag = useTag(tagId);
-  const flashcards = useFlashcardsArrayFromTag(tagId);
+  const learnMemoryIds = useLearnMemoryIds(tagId);
+  const allMemoriesForTag = useFlashcardsArrayFromTag(tagId);
 
-  const [memory, setMemory] = useState(
-    flashcards[Math.floor(Math.random() * flashcards.length)],
+  const [memoryId, setMemoryId] = useState(
+    learnMemoryIds.length > 0
+      ? learnMemoryIds[Math.floor(Math.random() * learnMemoryIds.length)]
+      : null,
   );
 
   const [view, setView] = useState<"VIEW" | "EDIT" | "DELETE">(`VIEW`);
-
   const [expand, setExpand] = useState(false);
   const dispatch = useAppDispatch();
 
   const next = useCallback(() => {
-    if (flashcards.length > 1) {
-      const flashcardsWithoutPrevious = flashcards.filter((x) => x.id != memory.id);
-      setMemory(
-        flashcardsWithoutPrevious[
-          Math.floor(Math.random() * flashcardsWithoutPrevious.length)
+    /*
+      Conditions.
+
+      ✅ Don't choose a memory that I have already had a good review 2 times in a row on same day.
+
+      Once I go through 10 memories, start repeating memories. Like, just pull from the last 10 reviews?
+    */
+
+    /*
+      TODO: This next function is called before the reviews are completed, so technically learnMemoryIds
+      is not 100% accurate. This causes a memory to display for a split second before the learnign is
+      completed. Eventually, might want to change the review creation to be optimistic instead of
+      waiting for firebase to complete.
+    */
+    if (learnMemoryIds.length > 1) {
+      const memoryIdsWithoutPrevious = learnMemoryIds.filter((x) => x != memoryId);
+      setMemoryId(
+        memoryIdsWithoutPrevious[
+          Math.floor(Math.random() * memoryIdsWithoutPrevious.length)
         ],
       );
     }
+    if (learnMemoryIds.length === 0) {
+      setMemoryId(null);
+    }
     setExpand(false);
-  }, [flashcards, memory.id]);
+  }, [learnMemoryIds, memoryId]);
+
+  const isComplete = !memoryId || learnMemoryIds.length === 0;
 
   const renderTopBar = () => {
     if (view === `EDIT` || view === `DELETE`) {
@@ -81,28 +108,37 @@ const LearnReal = ({ tagId }: { tagId: string }) => {
         }
         left={<TopBarIconLink to={`/tags/${tagId}`} Icon={HiOutlineChevronLeft} />}
         right={
-          <>
-            <TopBarIconButton
-              className="mr-4"
-              onClick={() => setView(`EDIT`)}
-              Icon={HiPencil}
-            />
-            <TopBarIconButton onClick={() => setView(`DELETE`)} Icon={HiOutlineTrash} />
-          </>
+          isComplete ? undefined : (
+            <>
+              <TopBarIconButton
+                className="mr-4"
+                onClick={() => setView(`EDIT`)}
+                Icon={HiPencil}
+              />
+              <TopBarIconButton onClick={() => setView(`DELETE`)} Icon={HiOutlineTrash} />
+            </>
+          )
         }
       />
     );
   };
 
   const renderBody = () => {
+    if (isComplete) {
+      return <p>Good job!</p>;
+    }
+
     if (view === `EDIT`) {
       return (
         <EditMemoryForm
-          memoryId={memory.id}
-          memory={memory}
+          memoryId={memoryId}
           onCancel={() => setView(`VIEW`)}
           onSuccessfulEdit={() => {
-            next();
+            /*
+              I do not want to go the next memory after a successful edit because
+              the user should still have the option to review the memory as good
+              or bad.
+            */
             setView(`VIEW`);
           }}
         />
@@ -111,7 +147,7 @@ const LearnReal = ({ tagId }: { tagId: string }) => {
     if (view === `DELETE`) {
       return (
         <DeleteMemoryForm
-          memoryId={memory.id}
+          memoryId={memoryId}
           onCancel={() => setView(`VIEW`)}
           onSuccessfulDelete={() => {
             next();
@@ -123,7 +159,7 @@ const LearnReal = ({ tagId }: { tagId: string }) => {
 
     return (
       <>
-        <Markdown className="w-full max-w-[1024px]">{content}</Markdown>
+        <MemoryMarkdown memoryId={memoryId} showBack={expand} />
         <div className="mt-8">
           {!expand && (
             <TopBarIconButton
@@ -140,7 +176,7 @@ const LearnReal = ({ tagId }: { tagId: string }) => {
                 onClick={() => {
                   dispatch(
                     createReview({
-                      data: { result: `BAD`, memoryId: memory.id },
+                      data: { result: `BAD`, memoryId },
                     }),
                   );
                   next();
@@ -158,7 +194,7 @@ const LearnReal = ({ tagId }: { tagId: string }) => {
                 onClick={() => {
                   dispatch(
                     createReview({
-                      data: { result: `GOOD`, memoryId: memory.id },
+                      data: { result: `GOOD`, memoryId },
                     }),
                   );
                   next();
@@ -172,21 +208,23 @@ const LearnReal = ({ tagId }: { tagId: string }) => {
     );
   };
 
-  let content = `${memory.front}`;
-
-  if (expand) {
-    content = `${content}
-
----
-
-${expand && memory.back}
-`;
-  }
-
   return (
     <>
       {renderTopBar()}
       <BodyView className="whitespace-pre-line flex flex-col justify-center items-center">
+        <p className="mb-8 flex flex-row gap-4">
+          {learnMemoryIds.length > 0 && (
+            <div className="flex items-center gap-[4px]">
+              <HiOutlineDocument className="text-purple-1" /> {learnMemoryIds.length}
+            </div>
+          )}
+          {allMemoriesForTag.length - learnMemoryIds.length > 0 && (
+            <div className="flex items-center gap-[4px]">
+              <HiOutlineCheck className="text-green-1" />
+              {allMemoriesForTag.length - learnMemoryIds.length}
+            </div>
+          )}
+        </p>
         {renderBody()}
       </BodyView>
     </>

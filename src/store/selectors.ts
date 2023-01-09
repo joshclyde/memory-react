@@ -1,10 +1,12 @@
-import { sortByAlphabet } from "src/utils/sort";
+import { isToday } from "date-fns";
 
-import { StateFlashcard, StateTag } from "./types";
+import { sortByDateString } from "src/utils/sort";
 
-import { RootState, useAppSelector } from ".";
+import { StateFlashcard, StateReview } from "./types";
 
-const selectFlashcards = (state: RootState): Record<string, StateFlashcard> => {
+import { RootState } from ".";
+
+export const selectFlashcards = (state: RootState): Record<string, StateFlashcard> => {
   return Object.fromEntries(
     Object.entries(state.flashcards.flashcardsIncludingDeleted).filter(
       ([, value]) => !value.isDeleted,
@@ -12,82 +14,50 @@ const selectFlashcards = (state: RootState): Record<string, StateFlashcard> => {
   );
 };
 
-const selectFlashcardsArray = (state: RootState) => {
+export const selectFlashcardsArray = (state: RootState) => {
   return Object.entries(selectFlashcards(state)).map(([id, values]) => ({
     ...values,
     id,
   }));
 };
 
-const selectFlashcardsFromTagId = (state: RootState, tagId: string) => {
+export const selectFlashcardsFromTagId = (state: RootState, tagId: string) => {
   return selectFlashcardsArray(state).filter((x) => x.tags.includes(tagId));
 };
 
-const selectReviewsArray = (state: RootState) => {
+export const selectReviewsArray = (state: RootState) => {
   return Object.entries(state.reviews.reviews).map(([id, values]) => ({
     ...values,
     id,
   }));
 };
 
-export const useFlashcards = (): Record<string, StateFlashcard> => {
-  const flashcardsIncludingDeleted = useAppSelector(
-    (state) => state.flashcards.flashcardsIncludingDeleted,
-  );
-  return Object.fromEntries(
-    Object.entries(flashcardsIncludingDeleted).filter(([, value]) => !value.isDeleted),
-  );
-};
+export const selectLearnMemoryIds = (state: RootState, tagId: string) => {
+  const flashcards = selectFlashcardsFromTagId(state, tagId);
+  const reviews = selectReviewsArray(state);
+  const reviewsByMemory: Record<string, Array<StateReview>> = {};
+  for (const x of reviews) {
+    if (reviewsByMemory[x.memoryId]) {
+      reviewsByMemory[x.memoryId].push(x);
+    } else {
+      reviewsByMemory[x.memoryId] = [x];
+    }
+  }
 
-export const useFlashcardsArray = () => {
-  const flashcards = useFlashcards();
-  return Object.entries(flashcards).map(([id, values]) => ({ ...values, id }));
-};
-
-export const useFlashcardsArrayFromTag = (tagId: string) => {
-  const flashcards = useFlashcardsArray();
-  return flashcards.filter(({ tags }) => tags.includes(tagId));
-};
-
-export const useTags = (): Record<string, StateTag> => {
-  const tagsIncludingDeleted = useAppSelector((state) => state.tags.tagsIncludingDeleted);
-  return Object.fromEntries(
-    Object.entries(tagsIncludingDeleted).filter(([, value]) => !value.isDeleted),
-  );
-};
-
-export const useTag = (tagId: string) => {
-  return useAppSelector((state) => state.tags.tagsIncludingDeleted[tagId]);
-};
-
-export const useTagsArray = () => {
-  const tags = useTags();
-  return Object.entries(tags).map(([id, values]) => ({ ...values, id }));
-};
-
-export const useTagsArrayWithFlashcards = () => {
-  return useAppSelector((state) => {
-    return Object.entries(state.tags.tagsIncludingDeleted).map(([id, values]) => ({
-      ...values,
-      id,
-      flashcardsArray: selectFlashcardsFromTagId(state, id),
-    }));
-  });
-};
-
-export const useTagsFormOptions = (): Array<{ id: string; name: string }> => {
-  const tags = useTags();
-  return Object.entries(tags)
-    .map(([id, { name }]) => ({ id, name }))
-    .sort((a, b) => sortByAlphabet(a.name, b.name));
-};
-
-export const useTagFlashcardsCount = (tagId: string) => {
-  return useAppSelector((state) => {
-    return selectFlashcardsFromTagId(state, tagId).length;
-  });
-};
-
-export const useReviewsArray = () => {
-  return useAppSelector((state) => selectReviewsArray(state));
+  return flashcards
+    .filter((memory) => {
+      const flashcardReviews = reviewsByMemory[memory.id];
+      if (!flashcardReviews) {
+        return true;
+      }
+      flashcardReviews.sort((a, b) => sortByDateString(a.createdDate, b.createdDate));
+      return !(
+        flashcardReviews.length >= 2 &&
+        isToday(new Date(flashcardReviews[0].createdDate)) &&
+        isToday(new Date(flashcardReviews[1].createdDate)) &&
+        flashcardReviews[0].result === `GOOD` &&
+        flashcardReviews[1].result === `GOOD`
+      );
+    })
+    .map((x) => x.id);
 };

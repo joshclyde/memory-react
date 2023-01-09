@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { useFlashcards } from "src/store/selectors";
+import { useFlashcards } from "src/store/useSelectors";
 
 import { DeleteMemory } from "./DeleteMemory";
 import { EditMemory } from "./EditMemory";

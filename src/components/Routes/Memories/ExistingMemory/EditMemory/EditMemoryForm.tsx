@@ -8,20 +8,18 @@ import { TextArea } from "src/components/Design/TextArea";
 import { isMarkdownOmitted } from "src/components/Markdown";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { updateFlashcard } from "src/store/flashcardsSlice";
-import { useTagsFormOptions } from "src/store/selectors";
-import { StateFlashcard } from "src/store/types";
+import { useMemory, useTagsFormOptions } from "src/store/useSelectors";
 
 export const EditMemoryForm = ({
   memoryId,
-  memory,
   onCancel,
   onSuccessfulEdit,
 }: {
   memoryId: string;
-  memory: StateFlashcard;
   onCancel: () => void;
   onSuccessfulEdit?: () => void;
 }) => {
+  const memory = useMemory(memoryId);
   const [front, setFront] = useState(memory.front);
   const [back, setBack] = useState(memory.back);
   const [tags, setTags] = useState(
