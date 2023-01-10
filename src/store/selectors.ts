@@ -21,7 +21,7 @@ export const selectFlashcardsArray = (state: RootState) => {
   }));
 };
 
-export const selectFlashcardsFromTagId = (state: RootState, tagId: string) => {
+export const selectFlashcardsArrayFromTagId = (state: RootState, tagId: string) => {
   return selectFlashcardsArray(state).filter((x) => x.tags.includes(tagId));
 };
 
@@ -33,7 +33,7 @@ export const selectReviewsArray = (state: RootState) => {
 };
 
 export const selectLearnMemoryIds = (state: RootState, tagId: string) => {
-  const flashcards = selectFlashcardsFromTagId(state, tagId);
+  const flashcards = selectFlashcardsArrayFromTagId(state, tagId);
   const reviews = selectReviewsArray(state);
   const reviewsByMemory: Record<string, Array<StateReview>> = {};
   for (const x of reviews) {

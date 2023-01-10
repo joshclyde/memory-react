@@ -1,6 +1,5 @@
 import {
   HiOutlineChevronLeft,
-  HiOutlineDocument,
   HiOutlineTag,
   HiOutlineTrash,
   HiPencil,
@@ -13,45 +12,8 @@ import {
 } from "src/components/Design/LayoutLeft";
 import { BodyView } from "src/components/Design/LayoutRight";
 import { Link } from "src/components/Design/Link";
+import { LearnIcons } from "src/components/LearnIcons";
 import { StateTag } from "src/store/types";
-import { useFlashcardsArrayFromTag, useReviewsArray } from "src/store/useSelectors";
-import { sortByDateString } from "src/utils/sort";
-import { suffix } from "src/utils/suffix";
-
-const useLocal = (tagId: string) => {
-  const flashcards = useFlashcardsArrayFromTag(tagId);
-  let reviews = useReviewsArray();
-  reviews = reviews.filter((x) => flashcards.some((y) => y.id === x.memoryId));
-
-  return {
-    flashcards,
-    reviews,
-    flashcardsCount: flashcards.length,
-    flashcardsCountNoReviews: flashcards.filter(
-      (x) => !reviews.some((y) => x.id === y.memoryId),
-    ).length,
-    flashcardsCountLastReviewIsGood: flashcards
-      .filter((x) => reviews.some((y) => x.id === y.memoryId))
-      .filter((x) => {
-        return (
-          reviews
-            .filter((y) => y.memoryId === x.id)
-            .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
-            .at(-1)?.result === `GOOD`
-        );
-      }).length,
-    flashcardsCountLastReviewIsBad: flashcards
-      .filter((x) => reviews.some((y) => x.id === y.memoryId))
-      .filter((x) => {
-        return (
-          reviews
-            .filter((y) => y.memoryId === x.id)
-            .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
-            .at(-1)?.result === `BAD`
-        );
-      }).length,
-  };
-};
 
 export const ViewTag = ({
   tagId,
@@ -62,8 +24,6 @@ export const ViewTag = ({
   tag: StateTag;
   setView: React.Dispatch<React.SetStateAction<"EDIT" | "DELETE" | "VIEW">>;
 }) => {
-  const data = useLocal(tagId);
-
   return (
     <>
       <TopBar
@@ -89,29 +49,7 @@ export const ViewTag = ({
             <HiOutlineTag className="text-purple-1" />
             {tag.name}
           </div>
-          <div className="flex items-center gap-[4px]">
-            <HiOutlineDocument className="text-purple-1" />
-            {data.flashcardsCount}
-            {` `}
-            {suffix(`flashcard`, `s`, data.flashcardsCount !== 1)}
-          </div>
-          <div>
-            {data.flashcardsCountNoReviews} new{` `}
-            {suffix(`flashcard`, `s`, data.flashcardsCountNoReviews !== 1)} that have not
-            been reviewed
-          </div>
-          <div>
-            {data.flashcardsCountLastReviewIsGood}
-            {` `}
-            {suffix(`flashcard`, `s`, data.flashcardsCountLastReviewIsGood !== 1)} with a
-            last good review
-          </div>
-          <div>
-            {data.flashcardsCountLastReviewIsBad}
-            {` `}
-            {suffix(`flashcard`, `s`, data.flashcardsCountLastReviewIsBad !== 1)} with a
-            last bad review
-          </div>
+          <LearnIcons tagId={tagId} />
           <Link to={`/learn/${tagId}`} className="w-fit">
             Learn
           </Link>

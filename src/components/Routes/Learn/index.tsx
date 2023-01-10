@@ -2,9 +2,7 @@ import { useCallback, useState } from "react";
 import {
   HiArrowRight,
   HiEye,
-  HiOutlineCheck,
   HiOutlineChevronLeft,
-  HiOutlineDocument,
   HiOutlineTag,
   HiOutlineTrash,
   HiPencil,
@@ -19,14 +17,11 @@ import {
   TopBarIconLink,
 } from "src/components/Design/LayoutLeft";
 import { BodyView } from "src/components/Design/LayoutRight";
+import { LearnIcons } from "src/components/LearnIcons";
 import { MemoryMarkdown } from "src/components/Markdown/MemoryMarkdown";
 import { useAppDispatch } from "src/store";
 import { createReview } from "src/store/reviewsSlice";
-import {
-  useFlashcardsArrayFromTag,
-  useLearnMemoryIds,
-  useTag,
-} from "src/store/useSelectors";
+import { useLearnMemoryIds, useTag } from "src/store/useSelectors";
 
 import { DeleteMemoryForm } from "../Memories/ExistingMemory/DeleteMemory/DeleteMemoryForm";
 import { EditMemoryForm } from "../Memories/ExistingMemory/EditMemory/EditMemoryForm";
@@ -34,7 +29,6 @@ import { EditMemoryForm } from "../Memories/ExistingMemory/EditMemory/EditMemory
 const LearnReal = ({ tagId }: { tagId: string }) => {
   const tag = useTag(tagId);
   const learnMemoryIds = useLearnMemoryIds(tagId);
-  const allMemoriesForTag = useFlashcardsArrayFromTag(tagId);
 
   const [memoryId, setMemoryId] = useState(
     learnMemoryIds.length > 0
@@ -212,19 +206,7 @@ const LearnReal = ({ tagId }: { tagId: string }) => {
     <>
       {renderTopBar()}
       <BodyView className="whitespace-pre-line flex flex-col justify-center items-center">
-        <p className="mb-8 flex flex-row gap-4">
-          {learnMemoryIds.length > 0 && (
-            <div className="flex items-center gap-[4px]">
-              <HiOutlineDocument className="text-purple-1" /> {learnMemoryIds.length}
-            </div>
-          )}
-          {allMemoriesForTag.length - learnMemoryIds.length > 0 && (
-            <div className="flex items-center gap-[4px]">
-              <HiOutlineCheck className="text-green-1" />
-              {allMemoriesForTag.length - learnMemoryIds.length}
-            </div>
-          )}
-        </p>
+        <LearnIcons tagId={tagId} className="mb-8" />
         {renderBody()}
       </BodyView>
     </>

@@ -1,7 +1,7 @@
 import { sortByAlphabet } from "src/utils/sort";
 
 import {
-  selectFlashcardsFromTagId,
+  selectFlashcardsArrayFromTagId,
   selectLearnMemoryIds,
   selectReviewsArray,
 } from "./selectors";
@@ -53,7 +53,7 @@ export const useTagsArrayWithFlashcards = () => {
     return Object.entries(state.tags.tagsIncludingDeleted).map(([id, values]) => ({
       ...values,
       id,
-      flashcardsArray: selectFlashcardsFromTagId(state, id),
+      flashcardsArray: selectFlashcardsArrayFromTagId(state, id),
     }));
   });
 };
@@ -67,7 +67,7 @@ export const useTagsFormOptions = (): Array<{ id: string; name: string }> => {
 
 export const useTagFlashcardsCount = (tagId: string) => {
   return useAppSelector((state) => {
-    return selectFlashcardsFromTagId(state, tagId).length;
+    return selectFlashcardsArrayFromTagId(state, tagId).length;
   });
 };
 
@@ -75,6 +75,14 @@ export const useReviewsArray = () => {
   return useAppSelector((state) => selectReviewsArray(state));
 };
 
+export const useFlashcardsLengthFromTagId = (tagId: string) => {
+  return useAppSelector((state) => selectFlashcardsArrayFromTagId(state, tagId).length);
+};
+
 export const useLearnMemoryIds = (tagId: string) => {
   return useAppSelector((state) => selectLearnMemoryIds(state, tagId));
+};
+
+export const useLearnMemoryIdsLength = (tagId: string) => {
+  return useAppSelector((state) => selectLearnMemoryIds(state, tagId).length);
 };
