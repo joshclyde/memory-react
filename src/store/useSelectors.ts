@@ -76,6 +76,5 @@ export const useReviewsArray = () => {
 };
 
 export const useLearnMemoryIds = (tagId: string) => {
-  console.log(`in useLearnMemoryIds`);
   return useAppSelector((state) => selectLearnMemoryIds(state, tagId));
 };
