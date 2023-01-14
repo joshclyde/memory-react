@@ -18,7 +18,7 @@ export const ExistingMemory = () => {
   }
 
   if (view === `EDIT`) {
-    return <EditMemory memoryId={memoryId} memory={memory} setView={setView} />;
+    return <EditMemory memoryId={memoryId} setView={setView} />;
   }
   if (view === `DELETE`) {
     return <DeleteMemory memoryId={memoryId} setView={setView} />;
